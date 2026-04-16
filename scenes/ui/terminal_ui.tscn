@@ -1,0 +1,131 @@
+[gd_scene load_steps=14 format=3 uid="uid://terminal_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/terminal_ui.gd" id="1_terminal_ui"]
+[ext_resource type="PackedScene" uid="uid://boot_screen_scene" path="res://scenes/ui/boot_screen.tscn" id="2_boot"]
+[ext_resource type="PackedScene" uid="uid://document_reader_scene" path="res://scenes/ui/document_reader.tscn" id="3_doc_reader"]
+[ext_resource type="PackedScene" uid="uid://cartridge_select_scene" path="res://scenes/ui/cartridge_select.tscn" id="4_cart_select"]
+[ext_resource type="PackedScene" uid="uid://notepad_scene" path="res://scenes/ui/notepad.tscn" id="5_notepad"]
+[ext_resource type="PackedScene" uid="uid://access_denied_scene" path="res://scenes/ui/access_denied.tscn" id="6_access_denied"]
+[ext_resource type="PackedScene" uid="uid://document_list_scene" path="res://scenes/ui/document_list.tscn" id="7_doc_list"]
+[ext_resource type="Script" path="res://scripts/ui/notification_bar.gd" id="8_notif"]
+[ext_resource type="Shader" path="res://assets/shaders/crt_scanline.gdshader" id="9_crt"]
+[ext_resource type="Theme" path="res://resources/themes/terminal_theme.tres" id="10_theme"]
+
+[sub_resource type="ShaderMaterial" id="CRTMaterial"]
+shader = ExtResource("9_crt")
+shader_parameter/speed = 30.0
+shader_parameter/intensity = 0.04
+shader_parameter/line_count = 240.0
+shader_parameter/distortion = 0.003
+shader_parameter/vignette_strength = 0.8
+shader_parameter/flicker_speed = 8.0
+shader_parameter/flicker_intensity = 0.015
+shader_parameter/tint = Color(0.98, 0.75, 0.15, 1.0)
+
+[node name="TerminalUI" type="Control"]
+script = ExtResource("1_terminal_ui")
+theme = ExtResource("10_theme")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.015, 0.014, 0.012, 1.0)
+
+[node name="Screens" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BootScreen" parent="Screens" instance=ExtResource("2_boot")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="IdleScreen" type="Control" parent="Screens"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="IdleLabel" type="RichTextLabel" parent="Screens/IdleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+bbcode_enabled = true
+text = "[color=#7a6018]■ MICROFICHE READER[/color]\n\n[color=#3a2a08]NO CARTRIDGE LOADED\n\nInsert a cartridge to access documents.\n\n[N] Field notes[/color]"
+
+[node name="CartridgeSelect" parent="Screens" instance=ExtResource("4_cart_select")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="DocumentList" parent="Screens" instance=ExtResource("7_doc_list")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="DocumentReader" parent="Screens" instance=ExtResource("3_doc_reader")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="AccessDenied" parent="Screens" instance=ExtResource("6_access_denied")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="Notepad" parent="Screens" instance=ExtResource("5_notepad")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="ScanlineOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = SubResource("CRTMaterial")
+color = Color(1, 1, 1, 1)
+mouse_filter = 2
+
+[node name="CRTVignette" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0)
+mouse_filter = 2
+
+[node name="NotificationBar" type="Control" parent="."]
+script = ExtResource("8_notif")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_right = 240.0
+offset_bottom = 28.0
+
+[node name="NotifPanel" type="PanelContainer" parent="NotificationBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="Label" type="RichTextLabel" parent="NotificationBar/NotifPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+bbcode_enabled = true
+fit_content = true

@@ -1,0 +1,128 @@
+[gd_scene load_steps=6 format=3 uid="uid://hands_scene"]
+
+[ext_resource type="Script" path="res://scripts/player/mechanical_hands.gd" id="1_hands"]
+
+[sub_resource type="BoxMesh" id="HandMesh_right_palm"]
+size = Vector3(0.09, 0.05, 0.12)
+
+[sub_resource type="BoxMesh" id="HandMesh_right_finger"]
+size = Vector3(0.018, 0.018, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="Mat_brass"]
+albedo_color = Color(0.72, 0.52, 0.18, 1)
+metallic = 0.85
+roughness = 0.3
+metallic_specular = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_copper"]
+albedo_color = Color(0.72, 0.38, 0.22, 1)
+metallic = 0.9
+roughness = 0.25
+
+[sub_resource type="StandardMaterial3D" id="Mat_dark_metal"]
+albedo_color = Color(0.12, 0.10, 0.08, 1)
+metallic = 0.7
+roughness = 0.5
+
+[node name="Hands" type="Node3D"]
+script = ExtResource("1_hands")
+
+[node name="RightHand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, 0)
+
+[node name="Palm" type="MeshInstance3D" parent="RightHand"]
+mesh = SubResource("HandMesh_right_palm")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="KnucklePlate" type="MeshInstance3D" parent="RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -0.04)
+mesh = SubResource("HandMesh_right_palm")
+surface_material_override/0 = SubResource("Mat_copper")
+
+[node name="Finger1" type="Node3D" parent="RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="RightHand/Finger1"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+[node name="Seg2" type="MeshInstance3D" parent="RightHand/Finger1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="Finger2" type="Node3D" parent="RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="RightHand/Finger2"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+[node name="Seg2" type="MeshInstance3D" parent="RightHand/Finger2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.055)
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="Finger3" type="Node3D" parent="RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="RightHand/Finger3"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+[node name="Seg2" type="MeshInstance3D" parent="RightHand/Finger3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="Finger4" type="Node3D" parent="RightHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033, 0.02, -0.055)
+[node name="Seg1" type="MeshInstance3D" parent="RightHand/Finger4"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+[node name="Seg2" type="MeshInstance3D" parent="RightHand/Finger4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.04)
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="Thumb" type="Node3D" parent="RightHand"]
+transform = Transform3D(0.9659, 0, 0.2588, 0, 1, 0, -0.2588, 0, 0.9659, -0.05, 0.005, -0.025)
+[node name="Seg1" type="MeshInstance3D" parent="RightHand/Thumb"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_copper")
+
+[node name="LeftHand" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.12, 0, 0)
+
+[node name="Palm" type="MeshInstance3D" parent="LeftHand"]
+mesh = SubResource("HandMesh_right_palm")
+surface_material_override/0 = SubResource("Mat_brass")
+
+[node name="KnucklePlate" type="MeshInstance3D" parent="LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -0.04)
+mesh = SubResource("HandMesh_right_palm")
+surface_material_override/0 = SubResource("Mat_copper")
+
+[node name="Finger1" type="Node3D" parent="LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="LeftHand/Finger1"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+
+[node name="Finger2" type="Node3D" parent="LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="LeftHand/Finger2"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+
+[node name="Finger3" type="Node3D" parent="LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 0.02, -0.06)
+[node name="Seg1" type="MeshInstance3D" parent="LeftHand/Finger3"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+
+[node name="Finger4" type="Node3D" parent="LeftHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033, 0.02, -0.055)
+[node name="Seg1" type="MeshInstance3D" parent="LeftHand/Finger4"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_dark_metal")
+
+[node name="Thumb" type="Node3D" parent="LeftHand"]
+transform = Transform3D(0.9659, 0, 0.2588, 0, 1, 0, -0.2588, 0, 0.9659, 0.05, 0.005, -0.025)
+[node name="Seg1" type="MeshInstance3D" parent="LeftHand/Thumb"]
+mesh = SubResource("HandMesh_right_finger")
+surface_material_override/0 = SubResource("Mat_copper")

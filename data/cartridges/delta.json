@@ -1,0 +1,66 @@
+{
+  "id": "delta",
+  "label": "DELTA",
+  "handwritten_label": "entities / glass litany",
+  "color": "#4A6B5A",
+  "access_level": 1,
+  "unlock_keywords": ["Greyfield", "Choir", "Glass Litany", "subsonic", "grey fugue"],
+  "documents": [
+    {
+      "id": "greyfield_choir",
+      "title": "THE GREYFIELD CHOIR",
+      "subtitle": "Entity Classification — Class II Swarm — Behavioral Profile",
+      "classification": "RESTRICTED",
+      "page": "016",
+      "tags": ["ENTITY", "SWARM", "ACTIVE THREAT"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "CLASSIFICATION",
+          "body": "The Greyfield Choir is a Class II swarm-type void entity characterized by coordinated collective movement and targeted subsonic emission. 23 documented sightings since Cycle 4418. Maximum observed count: 31 individuals. Standard observed range: 7-31 figures per sighting."
+        },
+        {
+          "heading": "PHYSICAL DESCRIPTION",
+          "body": "Individual figures: featureless grey, approximately 1.9 meters tall. No discernible facial features. No visible joints. Movement is fluid and does not correspond to any recognizable bipedal gait pattern. Individual figures do not appear to interact with each other, yet move in complete synchronization at all times.\n\nThe figures do not cast shadows."
+        },
+        {
+          "heading": "SUBSONIC EMISSION",
+          "body": "The primary threat mechanism is a persistent 14-18 Hz subsonic harmonic produced collectively by the swarm. Effects on human subjects at documented exposure durations:\n\n0-5 MINUTES: Mild unease, described as 'the feeling that someone is standing behind you.'\n5-15 MINUTES: Increasing anxiety, nausea, difficulty maintaining conversational focus.\n15-30 MINUTES: Grey fugue onset. Dissociative state. Subjects lose track of assigned tasks. Subjects lose track of why they are where they are. Subjects become docile.\n30+ MINUTES: Full grey fugue. Subjects stand still. They are not distressed. They report afterward, when recovered, that they were 'just waiting.' For what, they cannot say.\n\nGrey fugue is reversible with removal from proximity. Recovery time: 2-6 hours. No documented permanent cognitive effects.\n\nThat last sentence is accurate as of current data. Current data has a survivor sample of twelve. We will update this assessment as data improves."
+        },
+        {
+          "heading": "BEHAVIORAL PATTERNS",
+          "body": "The Choir is drawn to areas of prior human habitation. They have never been observed in pristine terrain.\n\nWhen the Choir is observed and then the area is vacated, the Choir typically disperses within 4-8 hours, collapsing into ash and reconstituting elsewhere. This has led to debate about whether individual figures are discrete entities or manifestations of a single distributed intelligence.\n\nDuring Operation Glass Litany, the Choir responded to the observation team with what appeared to be directed attention — turning collectively toward the operatives during extraction. As they did, the subsonic frequency dropped from 16.3 Hz to 11.7 Hz. This has not been observed before. It may indicate adaptation. It may indicate communication. We do not know."
+        }
+      ],
+      "keywords": ["Greyfield Choir", "grey fugue", "subsonic", "Class II", "swarm", "Glass Litany", "adaptation", "prior habitation", "featureless", "16.3 Hz"]
+    },
+    {
+      "id": "glass_litany",
+      "title": "OPERATION GLASS LITANY",
+      "subtitle": "After-Action Report — Cycle 4422.1 — Glass Flats, Grid W1",
+      "classification": "RESTRICTED",
+      "page": "090",
+      "tags": ["OPERATION", "PARTIAL SUCCESS", "KIA"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "MISSION SUMMARY",
+          "body": "Four-operative fireteam deployed to the Glass Flats to observe and document Greyfield Choir behavioral patterns during a confirmed active sighting. Mission objective: behavioral data collection only. No engagement authorized.\n\nResult: PARTIAL SUCCESS. Data collected. One KIA. One MIA with severe cognitive impairment."
+        },
+        {
+          "heading": "PERSONNEL",
+          "body": "OPERATIVE LIN DARO — KIA. Grey fugue onset at approximately 22 minutes. Fell behind during extraction. The Choir was between her position and the extraction route by the time the team realized she had stopped moving. The Choir did not approach her. She walked toward them.\n\nOPERATIVE RENN MARSH — Survived, severe cognitive impairment. Currently undergoing recovery. Prognosis: recoverable but timeline uncertain. Marsh has not been able to complete a full sentence since recovery. He has been able to complete the first half of sentences. He stops and waits, as if for someone to finish them for him.\n\nTwo remaining operatives — names withheld at their request — extracted successfully with full mission data."
+        },
+        {
+          "heading": "DATA COLLECTED",
+          "body": "The behavioral data from Glass Litany represents the most comprehensive documentation of Choir behavior yet obtained. Key observations:\n\n1. The Choir is aware of observers at ranges exceeding our previous estimates. They were aware of the team at approximately 200m, before any operative reported perceiving the subsonic emission.\n\n2. The frequency shift during extraction (16.3 Hz to 11.7 Hz) coincided exactly with the Choir turning to observe the operatives directly. This is the first documented evidence that the Choir modifies its behavior in response to specific individuals rather than merely to human presence in general.\n\n3. Operative Daro reported, immediately before grey fugue onset, that the Choir 'smelled like the break room. Like the coffee that no one ever finishes.' This detail is recorded here without interpretation."
+        },
+        {
+          "heading": "RECOMMENDATIONS",
+          "body": "1. Future Choir observation operations require a minimum of 6 operatives, with dedicated extraction coordination.\n2. All operatives must carry redundant Spectral Cauls — single-Caul deployments are insufficient given Choir subsonic range.\n3. Revised extraction protocols: extraction triggers at 10-minute exposure threshold rather than 20.\n4. Consider whether 'observation only' is an achievable mission objective given apparent Choir awareness and adaptation.\n5. Reclassify Daro's death as operational, not accidental. She did not fall. She was taken."
+        }
+      ],
+      "keywords": ["Glass Litany", "Lin Daro", "Renn Marsh", "grey fugue", "Greyfield Choir", "Glass Flats", "W1", "subsonic", "extraction", "adaptation"]
+    }
+  ]
+}

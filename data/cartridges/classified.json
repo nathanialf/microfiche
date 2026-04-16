@@ -1,0 +1,29 @@
+{
+  "id": "classified",
+  "label": "CLASSIFIED-7",
+  "handwritten_label": "???",
+  "color": "#1A1A1A",
+  "access_level": 99,
+  "unlock_keywords": [],
+  "access_denied": true,
+  "grimoire_void": true,
+  "void_fragments": [
+    "...RECORD LOCATED...",
+    "...RETRIEVAL FAILED...",
+    "...DATA STATE: VOID-INTERRED...",
+    "...LOCATION: GRIMOIRE VOID...",
+    "...DISTANCE: UNMEASURABLE...",
+    "...they said it was a systems error...",
+    "...the rate was achievable...",
+    "...we reviewed your performance and...",
+    "...this does not constitute an admission...",
+    "...your feedback has been received...",
+    "...we take these concerns seriously...",
+    "...after careful consideration...",
+    "...per our conversation on...",
+    "...the decision is final...",
+    "...RECORD INTEGRITY: 0.00%...",
+    "...CANNOT RETRIEVE FROM GRIMOIRE VOID..."
+  ],
+  "documents": []
+}

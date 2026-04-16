@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://cartridge_select_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/cartridge_select.gd" id="1_select"]
+
+[node name="CartridgeSelect" type="Control"]
+script = ExtResource("1_select")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Header" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 28)
+
+[node name="Title" type="Label" parent="Layout/Header"]
+size_flags_horizontal = 3
+text = "SELECT CARTRIDGE"
+
+[node name="HSep" type="HSeparator" parent="Layout"]
+
+[node name="ScrollArea" type="ScrollContainer" parent="Layout"]
+size_flags_vertical = 3
+
+[node name="CartridgeGrid" type="GridContainer" parent="Layout/ScrollArea"]
+columns = 2
+size_flags_horizontal = 3
+
+[node name="HSep2" type="HSeparator" parent="Layout"]
+
+[node name="Footer" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 28)
+
+[node name="Hint" type="Label" parent="Layout/Footer"]
+size_flags_horizontal = 3
+text = "[ESC] Cancel  |  [Click] Insert"
+
+[node name="CancelBtn" type="Button" parent="Layout/Footer"]
+text = "Cancel"

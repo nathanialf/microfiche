@@ -1,0 +1,70 @@
+{
+  "id": "gamma",
+  "label": "GAMMA",
+  "handwritten_label": "vex / equipment",
+  "color": "#6B4A6B",
+  "access_level": 1,
+  "unlock_keywords": ["Aria", "Vex", "void-touched", "Spectral Caul"],
+  "documents": [
+    {
+      "id": "aria_vex",
+      "title": "ARIA VEX",
+      "subtitle": "Personnel File — Class II — Void-Touched Designation Active",
+      "classification": "RESTRICTED",
+      "page": "007",
+      "tags": ["PERSONNEL", "VOID-TOUCHED", "MIA"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "DESIGNATION",
+          "body": "Operative designation: VEX, ARIA. Class II rank. Void-Touched designation applied following Relay Station exposure, Cycle 4416.2. Status: MIA as of Operation Sable Threshold, Cycle 4417.3."
+        },
+        {
+          "heading": "BACKGROUND",
+          "body": "Vex joined Sector 9 following a career as a geological surveyor for Extraction Division. She was recruited specifically for her field experience in low-gravity silicate environments — experience directly applicable to Wasting Expanse operations.\n\nHer file before the Omicron assignment was spotless. High marks across all Article 4 metrics. Three commendations for field judgment. One formal recognition for reporting a protocol violation by a superior officer — an act that her file notes 'demonstrated integrity' and that several colleagues, interviewed off-record, note 'was handled very badly by command.'"
+        },
+        {
+          "heading": "THE VOID-TOUCHED DESIGNATION",
+          "body": "During a survey mission in Cycle 4416.2, Vex was exposed to a localized void emanation in Sector 3 of Omicron-7. She was the only operative in her team to remain cognitively functional.\n\nPost-exposure monitoring identified a persistent anomalous effect: Vex can, at will, render her visual system translucent to void emanations — perceiving entities and fields that are otherwise invisible. She describes this as 'like looking through smoke that has a skeleton.' Sector 9 classified this as a Class II psionic resonance anomaly and designated her Void-Touched.\n\nVex initially refused the designation, citing concerns about what it would mean for her Article 4 metrics. Her supervisor assured her it would not affect her evaluations.\n\nSix months later, she was denied a promotion on the grounds that her 'operational profile was atypical.' She filed a complaint. It was classified Unreliable Testimony under a retroactive application of Article 7.\n\nShe continued to work. She filed no further complaints."
+        },
+        {
+          "heading": "EQUIPMENT — ASSIGNED",
+          "body": "SPECTRAL CAUL (Mark IV) — Neural interface mesh for void-emanation dampening. Calibrated to Vex specifically. Non-transferable.\n\nRIPPER BLADE — Standard issue. No anomalous properties.\n\nSONAR LOOM — Survey-grade equipment. Used for structural mapping in void-affected spaces where visual data is unreliable.\n\nVOID TINCTURE (3 units) — Emergency cognitive stabilizer. Short-term efficacy only."
+        },
+        {
+          "heading": "LAST KNOWN LOCATION",
+          "body": "Vex was last seen on internal sensors at Relay Station Omicron-7, Sector 3, data vault access corridor, at 04:17 station time, Cycle 4417.3.\n\nSurvivor Yael Mox reported seeing Vex and Operative Lira Dane moving toward the vault entrance. Neither emerged.\n\nThe vault is currently inaccessible due to the Pallid Watcher's presumed occupation of Sector 3.\n\nVex's equipment remains assigned to her. It has not been reallocated. Sector 9 policy is to wait 10 cycles before closing a MIA file. We are at cycle 7."
+        }
+      ],
+      "keywords": ["Aria Vex", "void-touched", "psionic", "Spectral Caul", "Sonar Loom", "Lira Dane", "data vault", "survey", "complaint", "unreliable testimony"]
+    },
+    {
+      "id": "spectral_caul",
+      "title": "THE SPECTRAL CAUL",
+      "subtitle": "Equipment Profile — Class III Psi-Shielding — Mark IV Revision",
+      "classification": "INTERNAL USE ONLY",
+      "page": "030",
+      "tags": ["EQUIPMENT", "PSI-SHIELDING", "VOID-DERIVED"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "DESCRIPTION",
+          "body": "The Spectral Caul is a close-fitting mesh hood with 12 neural contact points distributed across the crown, temples, and base of the skull. It is worn in direct contact with the scalp. Its function is to dampen and filter void emanations before they reach the wearer's cognitive systems."
+        },
+        {
+          "heading": "EFFICACY",
+          "body": "Against Class I-II void emanations: highly effective. Extended duration possible with standard monitoring.\n\nAgainst Class III emanations: effective with significant attenuation. Operatives report 'pressure' behind the eyes and occasional mild aphasia at extended durations.\n\nAgainst Class IV emanations: provides approximately 8-15 additional minutes of cognitive coherence before standard exposure progression. It does not protect you from the Pallid Watcher. It only slows the process.\n\nThis limitation is documented internally. Operatives deploying to Class IV encounter zones should be informed. Whether they are informed is at the discretion of operational command."
+        },
+        {
+          "heading": "DEVELOPMENT",
+          "body": "The Spectral Caul Mark I was developed in Cycles 4418-4419, following the Omicron Collapse, using neural tissue samples from void-exposed casualties. This is not disclosed in standard equipment briefings.\n\nThe Mark IV revision has improved efficacy by approximately 23% over the Mark I. The development methodology has not changed."
+        },
+        {
+          "heading": "AVAILABILITY",
+          "body": "34 units currently active. Demand consistently exceeds supply. Allocation is determined by Article 4 metric rankings — high performers receive priority assignment.\n\nOperatives who have raised questions about the allocation policy are reminded that it exists to ensure the most effective use of limited resources. Operatives who have raised questions about what 'limited resources' means given that demand has exceeded supply for four consecutive cycles are reminded of Article 1."
+        }
+      ],
+      "keywords": ["Spectral Caul", "psi-shielding", "neural contact", "void emanation", "Class IV", "Pallid Watcher", "neural tissue", "allocation", "Mark IV"]
+    }
+  ]
+}

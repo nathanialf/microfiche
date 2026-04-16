@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cartridge_scene"]
+
+[ext_resource type="Script" path="res://scripts/objects/cartridge.gd" id="1_cartridge"]
+
+[sub_resource type="BoxMesh" id="CartridgeBody"]
+size = Vector3(0.055, 0.095, 0.018)
+
+[sub_resource type="BoxMesh" id="LabelMesh"]
+size = Vector3(0.048, 0.055, 0.001)
+
+[sub_resource type="BoxMesh" id="RidgeMesh"]
+size = Vector3(0.055, 0.008, 0.018)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cartridge_default"]
+albedo_color = Color(0.5, 0.45, 0.35, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Mat_label"]
+albedo_color = Color(0.92, 0.88, 0.78, 1)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_ridge"]
+albedo_color = Color(0.3, 0.28, 0.22, 1)
+metallic = 0.3
+roughness = 0.6
+
+[sub_resource type="BoxShape3D" id="CartridgeCollision"]
+size = Vector3(0.06, 0.10, 0.025)
+
+[node name="Cartridge" type="Node3D"]
+script = ExtResource("1_cartridge")
+
+[node name="CartridgeMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CartridgeBody")
+surface_material_override/0 = SubResource("Mat_cartridge_default")
+
+[node name="LabelMesh" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -0.0095)
+mesh = SubResource("LabelMesh")
+surface_material_override/0 = SubResource("Mat_label")
+
+[node name="TopRidge" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051, 0)
+mesh = SubResource("RidgeMesh")
+surface_material_override/0 = SubResource("Mat_ridge")
+
+[node name="BottomConnector" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051, 0)
+mesh = SubResource("RidgeMesh")
+surface_material_override/0 = SubResource("Mat_ridge")
+
+[node name="CartridgeCollider" type="StaticBody3D" parent="."]
+collision_layer = 2
+[node name="Shape" type="CollisionShape3D" parent="CartridgeCollider"]
+shape = SubResource("CartridgeCollision")
+
+[node name="HighlightLight" type="OmniLight3D" parent="."]
+light_energy = 0.0
+omni_range = 0.15

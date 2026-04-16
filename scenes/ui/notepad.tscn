@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://notepad_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/notepad_ui.gd" id="1_notepad"]
+
+[node name="Notepad" type="Control"]
+script = ExtResource("1_notepad")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.025, 0.02, 0.92)
+
+[node name="PDAFrame" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+
+[node name="Header" type="HBoxContainer" parent="PDAFrame"]
+custom_minimum_size = Vector2(0, 28)
+
+[node name="TitleLabel" type="Label" parent="PDAFrame/Header"]
+size_flags_horizontal = 3
+text = "FIELD NOTES"
+
+[node name="Timestamp" type="Label" parent="PDAFrame/Header"]
+text = "CYCLE 1 — 00:00"
+horizontal_alignment = 1
+
+[node name="CloseBtn" type="Button" parent="PDAFrame/Header"]
+text = "✕"
+
+[node name="HSep" type="HSeparator" parent="PDAFrame"]
+
+[node name="NotepadArea" type="VBoxContainer" parent="PDAFrame"]
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="PDAFrame/NotepadArea"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Record your observations here.\n\nKeywords, connections, things that don't add up.\n\nAuto-saves."
+
+[node name="HSep2" type="HSeparator" parent="PDAFrame"]
+
+[node name="StatusBar" type="HBoxContainer" parent="PDAFrame"]
+custom_minimum_size = Vector2(0, 20)
+
+[node name="CharCount" type="Label" parent="PDAFrame/StatusBar"]
+text = "0 / 8000"
+
+[node name="StatusSpacer" type="Control" parent="PDAFrame/StatusBar"]
+size_flags_horizontal = 3
+
+[node name="SaveStatus" type="Label" parent="PDAFrame/StatusBar"]
+text = ""
+horizontal_alignment = 2

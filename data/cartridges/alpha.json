@@ -1,0 +1,77 @@
+{
+  "id": "alpha",
+  "label": "ALPHA",
+  "handwritten_label": "intake / orientation",
+  "color": "#8B7355",
+  "access_level": 0,
+  "documents": [
+	{
+	  "id": "threshold_accords",
+	  "title": "THE THRESHOLD ACCORDS",
+	  "subtitle": "Binding Operational Framework — Ratified Cycle 4418",
+	  "classification": "INTERNAL USE ONLY",
+	  "page": "075",
+	  "tags": ["POLICY", "BINDING", "FOUNDATIONAL"],
+	  "placeholder": true,
+	  "sections": [
+		{
+		  "heading": "PREAMBLE",
+		  "body": "In the aftermath of the Omicron Collapse, it became clear that existing protocols were insufficient to manage the scale and nature of the incursion. The Threshold Accords represent a binding operational framework intended to standardize response, classify all relevant intelligence, and ensure the continuity of productive operations within affected sectors.\n\nAll personnel assigned to Sector 9 are required to acknowledge receipt and comprehension of this document prior to their first operational cycle. Failure to sign constitutes grounds for immediate reassignment."
+		},
+		{
+		  "heading": "ARTICLE 1 — CLASSIFICATION",
+		  "body": "All intelligence pertaining to void incursions, entity contacts, and personnel affected by void exposure is classified Omega-level by default. Unauthorized disclosure to non-Sector personnel constitutes a breach of operational security and will be addressed accordingly.\n\nPersonnel are reminded that 'addressing breaches accordingly' is not a euphemism. Reference: Operative Counselor Resolution 14-B."
+		},
+		{
+		  "heading": "ARTICLE 4 — PRODUCTIVITY METRICS",
+		  "body": "Sector 9 operatives are evaluated on a continuous performance cycle. Metrics are compiled from:\n\n— Mission completion rate\n— Equipment return rate\n— Cognitive coherence scores (administered bi-weekly)\n— Incident report submission timeliness\n— Peer assessment scores\n\nOperatives falling below the 85th percentile on any single metric for two consecutive cycles will be placed on Supervised Status. Three consecutive cycles below threshold triggers automatic reassignment review.\n\nNote: Supervised Status does not affect your base compensation. It does affect your priority score for equipment requisition and shift selection."
+		},
+		{
+		  "heading": "ARTICLE 7 — VOID-EXPOSED PERSONNEL",
+		  "body": "Any operative confirmed to have experienced direct void exposure is subject to mandatory cognitive monitoring for a minimum of 12 operational cycles. During this period:\n\n— The operative may not serve in leadership capacity\n— The operative's incident reports require co-signature from a non-exposed supervisor\n— The operative's stated perceptions during the monitoring period are classified as Unreliable Testimony and cannot form the basis of formal complaints\n\nThis article exists to protect the operative and the integrity of Sector 9's data. It is not punitive."
+		},
+		{
+		  "heading": "ARTICLE 9 — EQUIPMENT",
+		  "body": "All void-derived materials and equipment remain property of Sector 9 regardless of operational context. Operatives do not own their gear. Gear is assigned. Gear may be reassigned at any time.\n\nLoss of gear in the field is documented. Repeated loss triggers a review under Article 4."
+		},
+		{
+		  "heading": "ARTICLE 12 — THE CLOSING PROVISION",
+		  "body": "In situations where a sector or facility cannot be contained, Sector 9 Command retains the authority to classify it as a Total Loss Zone and cease all recovery operations. Personnel within a declared Total Loss Zone at time of classification are presumed non-recoverable and are administratively closed.\n\nThis provision has been exercised once. Cycle 4417. We do not discuss the specifics publicly. Those who were there understand."
+		},
+		{
+		  "heading": "ACKNOWLEDGMENT",
+		  "body": "By continuing your assignment, you acknowledge that you have read, understood, and agree to operate within the Threshold Accords. You acknowledge that Sector 9 exists to serve a necessary function, that the work is hard, and that not everyone makes it.\n\nWelcome aboard. We're glad you're here."
+		}
+	  ],
+	  "keywords": ["Omicron", "Sector 9", "Omega", "Article 7", "Article 12", "Supervised Status", "Total Loss", "void exposure", "cognitive monitoring"]
+	},
+	{
+	  "id": "omicron_collapse",
+	  "title": "THE OMICRON COLLAPSE",
+	  "subtitle": "Archive Fragment — Restricted Access — Cycle 4417",
+	  "classification": "OMEGA LEVEL",
+	  "page": "071",
+	  "tags": ["INCIDENT", "HISTORICAL", "VOID EVENT"],
+	  "placeholder": true,
+	  "sections": [
+		{
+		  "heading": "SUMMARY",
+		  "body": "The Omicron Collapse refers to the 47-operational-cycle cascading void incursion that consumed Relay Station Omicron-7 between Cycles 4415 and 4417. It remains the most significant void event in recorded human history. 22 personnel were stationed at Omicron-7 at the time of the initial incursion. One survived."
+		},
+		{
+		  "heading": "TIMELINE",
+		  "body": "CYCLE 4415.1 — First anomalous signal detected. Origin: internal. The signal appeared to be coming from inside the receiver.\n\nCYCLE 4415.4 — 14 of 22 personnel report identical auditory hallucinations: a low, steady counting. Numbers. Always backward.\n\nCYCLE 4416.2 — Structural surveys reveal spatial inconsistencies. Corridors measuring longer than blueprinted. Maintenance shaft B-7, documented at 12 meters, measured at 300+ on three separate surveys. Survey team requested reassignment. Reassignment denied due to operational necessity.\n\nCYCLE 4416.4 — Two specialists assigned to resolve Shaft B-7 discrepancy. They entered the shaft. They did not exit. The shaft measured 12 meters again the following day.\n\nCYCLE 4417.1 — Pallid Watcher manifestation, reactor chamber. Primary encounter. 10 of 11 remaining personnel experienced what is now classified as 'erasure of self's narrative coherence.' They could not remember their own names. They could not remember what they had been doing. They stood still and waited.\n\nCYCLE 4417.3 — Operation Sable Threshold deployed. Six operatives. See separate report.\n\nCYCLE 4417.3 (END) — Sole survivor: Yael Mox, recovered from exterior hull, vacuum exposure, alive."
+		},
+		{
+		  "heading": "CONTRIBUTING FACTORS",
+		  "body": "A post-collapse review identified several contributing factors that have since been addressed:\n\n— Personnel reports of anomalous phenomena were flagged as 'stress indicators' and routed to occupational wellness rather than operational command. This routing has been corrected.\n\n— Requests for early evacuation were denied three times on the basis of mission-critical data collection requirements. The data was not recovered.\n\n— Cognitive monitoring protocols did not exist at the time. They now do.\n\nThe review board concluded that the outcome, while tragic, produced information essential to the development of the Threshold Accords. Omicron-7 did not die in vain."
+		},
+		{
+		  "heading": "WHAT WAS LEARNED",
+		  "body": "The void does not respond to productivity metrics. It does not care about your output rate, your compliance score, or your acknowledgment of the relevant frameworks. It will take you anyway.\n\nWhat this means for operational doctrine is still being debated at the command level. In the meantime, meet your metrics. It's what we can control."
+		}
+	  ],
+	  "keywords": ["Omicron-7", "4417", "Pallid Watcher", "Yael Mox", "Sable Threshold", "narrative coherence", "Relay Station", "void incursion", "erasure"]
+	}
+  ]
+}

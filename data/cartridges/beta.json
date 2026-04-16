@@ -1,0 +1,69 @@
+{
+  "id": "beta",
+  "label": "BETA",
+  "handwritten_label": "personnel / mox",
+  "color": "#556B8B",
+  "access_level": 0,
+  "documents": [
+    {
+      "id": "yael_mox",
+      "title": "YAEL MOX",
+      "subtitle": "Personnel File — Class III (Suspended) — Cognitive Monitoring Active",
+      "classification": "RESTRICTED",
+      "page": "010",
+      "tags": ["PERSONNEL", "SURVIVOR", "MONITORED"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "DESIGNATION",
+          "body": "Operative designation: MOX, YAEL. Assigned identifier: OM-7-SOLE. Sole confirmed survivor of the Omicron Collapse. Current status: Sector 9, administrative holding. Field assignment suspended per Article 7 — Threshold Accords."
+        },
+        {
+          "heading": "BACKGROUND",
+          "body": "Mox was stationed at Omicron-7 from Cycle 4413. Prior to the collapse, performance reviews were unremarkable: consistent, competent, no disciplinary flags. Colleagues described her as 'quiet' and 'reliable.' She filed no complaints.\n\nShe was recovered from the exterior hull of Omicron-7 approximately 14 hours after the Pallid Watcher manifestation, during the extraction phase of Operation Sable Threshold. Vacuum exposure. Frostbite, minor. Alive."
+        },
+        {
+          "heading": "POST-RECOVERY OBSERVATIONS",
+          "body": "Mox presents as cooperative and oriented to time and place. However, monitoring personnel have documented the following anomalous behaviors:\n\n— ANTICIPATORY STILLNESS: Mox has, on 23 documented occasions, stopped moving 2-4 seconds before something unexpected happened nearby. She has not been able to explain this.\n\n— SLEEP CYCLE: Mox sleeps exactly 47 minutes per cycle, wakes without alarm, and does not experience fatigue.\n\n— NAMING: Mox has correctly named three incoming operatives before being introduced to them. When asked how she knew, she said: 'They told me. Before they arrived.'\n\n— STATEMENT: In her initial debrief, Mox stated that during the final hours on Omicron-7, she heard Operative Lira Dane speaking 'words that hadn't been invented yet.' This statement is classified Unreliable Testimony per Article 7. It is retained in her file for completeness."
+        },
+        {
+          "heading": "COGNITIVE MONITORING STATUS",
+          "body": "Current cycle: 7 of 12. All biweekly assessments within normal parameters.\n\nMox has requested, three times, to be returned to field assignment. Each request has been denied on Article 7 grounds. She has not appealed further.\n\nShe uses her administrative holding period to write. She fills notebooks. When asked what she is writing, she says: 'Things that haven't happened yet.'\n\nAll notebooks are reviewed and retained by monitoring personnel. They are unremarkable. They contain, in extremely precise detail, mundane events from the following week."
+        },
+        {
+          "heading": "INCIDENT: CYCLE 4422.4",
+          "body": "During a routine check-in, Mox told her monitoring supervisor: 'You're going to find something in Outpost Kaya. It's going to say 4417. You're going to need to go back to the station.'\n\nHer supervisor filed an Unreliable Testimony notation and continued the session.\n\nFive days later, Operation Glass Litany reported the Kaya signal. The Outpost communication array had transmitted the word 4417, repeated 4,417 times.\n\nMox's monitoring supervisor submitted a formal request to reclassify her testimony status. The request is pending review."
+        }
+      ],
+      "keywords": ["Mox", "Yael", "OM-7-SOLE", "Lira Dane", "anticipatory stillness", "Outpost Kaya", "4417", "unreliable testimony", "Article 7", "Sable Threshold"]
+    },
+    {
+      "id": "sable_threshold",
+      "title": "OPERATION SABLE THRESHOLD",
+      "subtitle": "After-Action Report — Cycle 4417.3 — Relay Station Omicron-7",
+      "classification": "OMEGA LEVEL",
+      "page": "085",
+      "tags": ["OPERATION", "FAILURE", "PALLID WATCHER"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "MISSION SUMMARY",
+          "body": "Six-operative fireteam deployed to Relay Station Omicron-7 for dual objectives: structural survey of accessible sections and recovery of Sector 9 proprietary data from the primary archive vault.\n\nResult: TOTAL MISSION FAILURE."
+        },
+        {
+          "heading": "PERSONNEL",
+          "body": "OPERATIVE HASK — KIA. Cellular dehydration, instantaneous. Watcher contact.\nOPERATIVE SOLARI — KIA. Cellular dehydration, instantaneous. Watcher contact.\nOPERATIVE BRUNT — KIA. Cellular dehydration, instantaneous. Watcher contact.\nOPERATIVE LIRA DANE — MIA. Last seen: Sector 3, data vault access corridor. Not recovered.\nOPERATIVE ARIA VEX — MIA. Last seen: Sector 3, alongside Dane. Not recovered.\nOPERATIVE YAEL MOX — SURVIVED. Recovered exterior hull. See separate file."
+        },
+        {
+          "heading": "SIGNIFICANT FINDINGS",
+          "body": "1. THE WATCHER IS MAINTAINING THE STATION. Despite confirmed reactor failure at the time of the Omicron Collapse, the station's internal atmosphere, temperature, and partial lighting remain operational. The Watcher appears to be sustaining these systems. For what purpose is unknown.\n\n2. THE HOLLOW BLADE WAS ADAPTED. Operative Hask attempted to use the Hollow Blade against the Watcher in Sector 2. Instead of the expected resonance effect, the Blade's frequency was inverted in real time and reflected back at the operative team. Hask, Solari, and Brunt were dehydrated at the cellular level within seconds. The Blade was dropped and last detected in Sector 3, data vault.\n\n3. THE SHUTTLE HAD COORDINATES. When Mox reached the extraction shuttle, its navigational system was already engaged with a set of coordinates no member of the team had programmed. She flew the shuttle back to base. The pre-programmed coordinates corresponded to a location approximately 400km south of Omicron-7 — in the center of the Wasting Expanse. No structure is documented at that location.\n\n4. MOX HEARD DANE. Mox reports that as she was retreating through Sector 2, she heard Operative Dane's voice from within the Watcher's proximity, speaking in an unfamiliar language. Mox describes it as 'words that hadn't been invented yet.' This is classified Unreliable Testimony. It is retained here for completeness."
+        },
+        {
+          "heading": "RECOMMENDATIONS",
+          "body": "1. Reclassify the Pallid Watcher from ACTIVE-CONTAINED to ACTIVE-HOSTILE-SOVEREIGN.\n2. Establish a 200km quarantine perimeter around Omicron-7.\n3. Suspend all Wasting Expanse operations pending comprehensive threat reassessment.\n4. Investigate pre-programmed shuttle coordinates. Discretely.\n5. Recover the Hollow Blade if operationally feasible. Priority: MAXIMUM.\n\nRecommendations 1-3 have been implemented.\nRecommendations 4-5 are pending resource availability."
+        }
+      ],
+      "keywords": ["Sable Threshold", "Aria Vex", "Lira Dane", "Hollow Blade", "Pallid Watcher", "Wasting Expanse", "Hask", "Solari", "Brunt", "Mox", "shuttle coordinates", "cellular dehydration"]
+    }
+  ]
+}

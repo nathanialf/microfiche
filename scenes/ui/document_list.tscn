@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://document_list_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/document_list.gd" id="1_doclist"]
+
+[node name="DocumentList" type="Control"]
+script = ExtResource("1_doclist")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Header" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 26)
+
+[node name="Title" type="Label" parent="Layout/Header"]
+size_flags_horizontal = 3
+text = "SELECT DOCUMENT"
+
+[node name="HSep" type="HSeparator" parent="Layout"]
+
+[node name="ScrollArea" type="ScrollContainer" parent="Layout"]
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="Layout/ScrollArea"]
+size_flags_horizontal = 3
+
+[node name="HSep2" type="HSeparator" parent="Layout"]
+
+[node name="Footer" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 24)
+
+[node name="BackBtn" type="Button" parent="Layout/Footer"]
+text = "◂ BACK [ESC]"

@@ -1,0 +1,281 @@
+[gd_scene load_steps=16 format=3 uid="uid://room_scene"]
+
+[ext_resource type="PackedScene" uid="uid://player_scene" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://reader_scene" path="res://scenes/objects/microfiche_reader.tscn" id="2_reader"]
+[ext_resource type="PackedScene" uid="uid://cartridge_scene" path="res://scenes/objects/cartridge.tscn" id="3_cartridge"]
+[ext_resource type="Script" path="res://scripts/room/room.gd" id="4_room"]
+[ext_resource type="Environment" path="res://scenes/room/room_environment.tres" id="5_env"]
+
+; ── Materials ─────────────────────────────────────────────────────────────────
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_color = Color(0.88, 0.87, 0.84, 1)
+roughness = 0.22
+metallic = 0.04
+
+[sub_resource type="StandardMaterial3D" id="Mat_wall"]
+albedo_color = Color(0.95, 0.94, 0.91, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="Mat_ceiling"]
+albedo_color = Color(0.97, 0.97, 0.95, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Mat_desk"]
+albedo_color = Color(0.50, 0.32, 0.16, 1)
+roughness = 0.55
+metallic = 0.02
+
+[sub_resource type="StandardMaterial3D" id="Mat_desk_metal"]
+albedo_color = Color(0.80, 0.80, 0.78, 1)
+roughness = 0.14
+metallic = 0.90
+
+[sub_resource type="StandardMaterial3D" id="Mat_keyboard_prop"]
+albedo_color = Color(0.83, 0.80, 0.72, 1)
+roughness = 0.84
+
+; ── Meshes ─────────────────────────────────────────────────────────────────────
+
+[sub_resource type="BoxMesh" id="Mesh_floor"]
+size = Vector3(5.0, 0.08, 4.5)
+
+[sub_resource type="BoxMesh" id="Mesh_ceiling"]
+size = Vector3(5.0, 0.08, 4.5)
+
+[sub_resource type="BoxMesh" id="Mesh_wall_back"]
+size = Vector3(5.0, 3.2, 0.12)
+
+[sub_resource type="BoxMesh" id="Mesh_wall_left"]
+size = Vector3(0.12, 3.2, 4.5)
+
+[sub_resource type="BoxMesh" id="Mesh_wall_right"]
+size = Vector3(0.12, 3.2, 4.5)
+
+[sub_resource type="BoxMesh" id="Mesh_desk_top"]
+size = Vector3(2.2, 0.06, 0.85)
+
+[sub_resource type="BoxMesh" id="Mesh_desk_leg"]
+size = Vector3(0.06, 0.74, 0.06)
+
+[sub_resource type="BoxMesh" id="Mesh_desk_panel"]
+size = Vector3(2.18, 0.40, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_desk_rail"]
+size = Vector3(2.18, 0.04, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_keyboard_prop"]
+size = Vector3(0.38, 0.022, 0.14)
+
+; ── Shapes ─────────────────────────────────────────────────────────────────────
+
+[sub_resource type="BoxShape3D" id="Shape_floor"]
+size = Vector3(5.0, 0.08, 4.5)
+
+[sub_resource type="BoxShape3D" id="Shape_wall_back"]
+size = Vector3(5.0, 3.2, 0.12)
+
+[sub_resource type="BoxShape3D" id="Shape_wall_left"]
+size = Vector3(0.12, 3.2, 4.5)
+
+[sub_resource type="BoxShape3D" id="Shape_wall_right"]
+size = Vector3(0.12, 3.2, 4.5)
+
+[sub_resource type="BoxShape3D" id="Shape_desk"]
+size = Vector3(2.2, 0.06, 0.85)
+
+[sub_resource type="BoxMesh" id="Mesh_return_top"]
+size = Vector3(0.70, 0.06, 1.0)
+
+[sub_resource type="BoxShape3D" id="Shape_return"]
+size = Vector3(0.70, 0.06, 1.0)
+
+[sub_resource type="BoxMesh" id="Mesh_return_front_panel"]
+size = Vector3(0.70, 0.40, 0.04)
+
+[sub_resource type="BoxMesh" id="Mesh_return_side_panel"]
+size = Vector3(0.04, 0.40, 1.0)
+
+; ── Scene tree ────────────────────────────────────────────────────────────────
+
+[node name="Room" type="Node3D"]
+script = ExtResource("4_room")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_env")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="OverheadFront" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 0.707, -0.707, 0, 0.707, 0.707, 0, 3.0, 0)
+light_color = Color(0.94, 0.96, 1.0, 1)
+light_energy = 2.4
+shadow_enabled = true
+directional_shadow_max_distance = 10.0
+
+[node name="OverheadRear" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, -2.2)
+light_color = Color(0.94, 0.96, 1.0, 1)
+light_energy = 1.8
+omni_range = 6.5
+omni_attenuation = 1.4
+shadow_enabled = false
+
+[node name="FillBack" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 1.4)
+light_color = Color(0.90, 0.92, 0.96, 1)
+light_energy = 1.2
+omni_range = 6.0
+omni_attenuation = 1.6
+
+[node name="TerminalGlow" type="OmniLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.10, -1.45)
+light_color = Color(0.98, 0.72, 0.12, 1)
+light_energy = 0.0
+omni_range = 1.4
+omni_attenuation = 1.8
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Architecture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
+[node name="Mesh" type="MeshInstance3D" parent="Architecture/Floor"]
+mesh = SubResource("Mesh_floor")
+surface_material_override/0 = SubResource("Mat_floor")
+[node name="Shape" type="CollisionShape3D" parent="Architecture/Floor"]
+shape = SubResource("Shape_floor")
+
+[node name="Ceiling" type="StaticBody3D" parent="Architecture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.12, 0)
+[node name="Mesh" type="MeshInstance3D" parent="Architecture/Ceiling"]
+mesh = SubResource("Mesh_ceiling")
+surface_material_override/0 = SubResource("Mat_ceiling")
+[node name="Shape" type="CollisionShape3D" parent="Architecture/Ceiling"]
+shape = SubResource("Shape_floor")
+
+[node name="WallBack" type="StaticBody3D" parent="Architecture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56, -2.31)
+[node name="Mesh" type="MeshInstance3D" parent="Architecture/WallBack"]
+mesh = SubResource("Mesh_wall_back")
+surface_material_override/0 = SubResource("Mat_wall")
+[node name="Shape" type="CollisionShape3D" parent="Architecture/WallBack"]
+shape = SubResource("Shape_wall_back")
+
+[node name="WallLeft" type="StaticBody3D" parent="Architecture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56, 1.56, 0)
+[node name="Mesh" type="MeshInstance3D" parent="Architecture/WallLeft"]
+mesh = SubResource("Mesh_wall_left")
+surface_material_override/0 = SubResource("Mat_wall")
+[node name="Shape" type="CollisionShape3D" parent="Architecture/WallLeft"]
+shape = SubResource("Shape_wall_left")
+
+[node name="WallRight" type="StaticBody3D" parent="Architecture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56, 1.56, 0)
+[node name="Mesh" type="MeshInstance3D" parent="Architecture/WallRight"]
+mesh = SubResource("Mesh_wall_right")
+surface_material_override/0 = SubResource("Mat_wall")
+[node name="Shape" type="CollisionShape3D" parent="Architecture/WallRight"]
+shape = SubResource("Shape_wall_right")
+
+[node name="Furniture" type="Node3D" parent="."]
+
+[node name="Desk" type="StaticBody3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -1.62)
+[node name="Top" type="MeshInstance3D" parent="Furniture/Desk"]
+mesh = SubResource("Mesh_desk_top")
+surface_material_override/0 = SubResource("Mat_desk")
+[node name="Shape" type="CollisionShape3D" parent="Furniture/Desk"]
+shape = SubResource("Shape_desk")
+
+[node name="DeskLegFL" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04, 0.37, -1.24)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="DeskLegFR" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04, 0.37, -1.24)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="DeskLegBL" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04, 0.37, -2.0)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="DeskLegBR" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04, 0.37, -2.0)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="DeskFrontPanel" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1.22)
+mesh = SubResource("Mesh_desk_panel")
+surface_material_override/0 = SubResource("Mat_desk")
+
+[node name="DeskBackRail" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, -2.0)
+mesh = SubResource("Mesh_desk_rail")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="KeyboardProp" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(0.996, 0, 0.087, 0, 1, 0, -0.087, 0, 0.996, 0.35, 0.832, -1.48)
+mesh = SubResource("Mesh_keyboard_prop")
+surface_material_override/0 = SubResource("Mat_keyboard_prop")
+
+; ── L-Desk return (right side, extends toward player) ─────────────────────────
+; Main desk right edge: X=+1.10, front face: Z=-1.195
+; Return spans X=+1.10 to +1.80, Z=-0.195 to -1.195
+
+[node name="ReturnDesk" type="StaticBody3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 0.78, -0.695)
+[node name="Top" type="MeshInstance3D" parent="Furniture/ReturnDesk"]
+mesh = SubResource("Mesh_return_top")
+surface_material_override/0 = SubResource("Mat_desk")
+[node name="Shape" type="CollisionShape3D" parent="Furniture/ReturnDesk"]
+shape = SubResource("Shape_return")
+
+[node name="ReturnLegFL" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14, 0.37, -0.24)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="ReturnLegFR" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 0.37, -0.24)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="ReturnLegBR" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 0.37, -1.15)
+mesh = SubResource("Mesh_desk_leg")
+surface_material_override/0 = SubResource("Mat_desk_metal")
+
+[node name="ReturnFrontPanel" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 0.55, -0.177)
+mesh = SubResource("Mesh_return_front_panel")
+surface_material_override/0 = SubResource("Mat_desk")
+
+[node name="ReturnSidePanel" type="MeshInstance3D" parent="Furniture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78, 0.55, -0.695)
+mesh = SubResource("Mesh_return_side_panel")
+surface_material_override/0 = SubResource("Mat_desk")
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="MicroficheReader" parent="Objects" instance=ExtResource("2_reader")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.03, -1.78)
+
+; Cartridges rest directly on desk surface (Y=0.858 = desk top + cartridge half-height)
+[node name="CartridgeAlpha" parent="Objects" instance=ExtResource("3_cartridge")]
+transform = Transform3D(0.982, 0, 0.188, 0, 1, 0, -0.188, 0, 0.982, 0.22, 0.858, -1.50)
+cartridge_id = "alpha"
+
+[node name="CartridgeBeta" parent="Objects" instance=ExtResource("3_cartridge")]
+transform = Transform3D(0.995, 0, -0.105, 0, 1, 0, 0.105, 0, 0.995, 0.50, 0.858, -1.54)
+cartridge_id = "beta"
+
+[node name="CartridgeClassified" parent="Objects" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0.02, 0, 1, 0, -0.02, 0, 1, 0.78, 0.858, -1.52)
+cartridge_id = "classified"
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -0.55)

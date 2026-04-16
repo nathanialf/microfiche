@@ -1,0 +1,70 @@
+{
+  "id": "zeta",
+  "label": "ZETA",
+  "handwritten_label": "watcher / hollow blade",
+  "color": "#3A3A5C",
+  "access_level": 2,
+  "unlock_keywords": ["Pallid Watcher", "Hollow Blade", "Watcher", "Hollow", "cellular dehydration", "ACTIVE-HOSTILE"],
+  "documents": [
+    {
+      "id": "pallid_watcher",
+      "title": "THE PALLID WATCHER",
+      "subtitle": "Entity Classification — Class IV Void-Born — Active-Hostile-Sovereign",
+      "classification": "OMEGA LEVEL",
+      "page": "013",
+      "tags": ["ENTITY", "CLASS IV", "OBSERVE ONLY", "APEX THREAT"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "CLASSIFICATION",
+          "body": "The Pallid Watcher is a Class IV void-born entity, reclassified from ACTIVE-CONTAINED to ACTIVE-HOSTILE-SOVEREIGN following Operation Sable Threshold, Cycle 4417.3. Classification: OBSERVE ONLY. This is not a tactical limitation. It is the only accurate description of the operational options available to you."
+        },
+        {
+          "heading": "PHYSICAL DESCRIPTION",
+          "body": "Translucent skin. Photo-sensitive organs arranged in a ridge along the cranium. Approximately 2.4 meters tall when observed in a vertical orientation. It is not always in a vertical orientation. It is not always in a fixed orientation. It does not consistently occupy three-dimensional space in the way that you do.\n\nThis last point requires elaboration, which we are unable to provide. The Watcher has been observed occupying spaces simultaneously. It has been observed in locations that should not be reachable from its last documented position. In two instances, multiple operatives in physically separate locations reported Watcher presence at the same moment. We do not have a framework for this. We are describing it accurately."
+        },
+        {
+          "heading": "DOCUMENTED SIGHTINGS",
+          "body": "Seven confirmed sightings. One survivor across all seven. The survivor is Yael Mox.\n\nThis statistic is presented without editorializing. The implications are for the reader to assess."
+        },
+        {
+          "heading": "WHAT IT DOES",
+          "body": "The Watcher kills by removing water from living tissue at the cellular level. This process is instantaneous at close range. There is no apparent mechanism. The tissue is simply dry afterward. Operatives Hask, Solari, and Brunt died this way.\n\nThe Watcher also appears to passively maintain the environment of Relay Station Omicron-7 despite the station's reactor failure. Temperature, atmosphere, and partial lighting remain operational. We do not understand why it is doing this.\n\nThe Watcher also appears to communicate, in some sense. Operative Mox reported hearing Operative Dane's voice 'from within' the Watcher's proximity. The shuttle pre-programmed with coordinates no one entered. The Outpost Kaya signal. We are not stating that the Watcher is responsible for these things. We are noting the proximity of these events to documented Watcher activity."
+        },
+        {
+          "heading": "PROTOCOL",
+          "body": "If you encounter the Pallid Watcher:\n\nDo not engage.\nDo not attempt to communicate.\nDo not use void-derived equipment in its presence — see Hollow Blade incident.\nDo not run. Running has not historically helped.\nObserve, if you are able.\nLeave, if you are able.\n\nIf you are reading this and wondering whether the protocol is sufficient: it is not. We are being honest with you. The protocol is what we have."
+        }
+      ],
+      "keywords": ["Pallid Watcher", "Class IV", "cellular dehydration", "Omicron-7", "Yael Mox", "Lira Dane", "dimensional superposition", "ACTIVE-HOSTILE-SOVEREIGN", "Hollow Blade", "observe only"]
+    },
+    {
+      "id": "hollow_blade",
+      "title": "THE HOLLOW BLADE",
+      "subtitle": "Artifact Profile — Class V Restricted — Recovery Priority: MAXIMUM",
+      "classification": "OMEGA LEVEL",
+      "page": "024",
+      "tags": ["ARTIFACT", "CLASS V", "MISSING", "VOID-ORIGIN"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "DESCRIPTION",
+          "body": "A blade of unknown alloy, approximately 38cm in length. Weight: 40% less than predicted for its volume and apparent density. The material is not identifiable by any existing spectrographic method.\n\nCarriers report persistent auditory phenomena: 'a sound like whispering,' 'someone counting,' 'reading names.' The sounds are inaudible to others. Three carriers have attempted to transcribe what they hear. The transcriptions do not share any identifiable language. They do not share any identifiable structure. Two of the three carriers subsequently requested reassignment from Sector 9. The third is unavailable for follow-up."
+        },
+        {
+          "heading": "ORIGIN",
+          "body": "Recovered from Relay Station Omicron-7 during a pre-collapse survey, Cycle 4415.1. Location of recovery: embedded in the wall of Sector 3, data vault access corridor. Not inserted. Not dropped. Embedded — as if the wall had grown around it, or as if it had arrived inside the wall from some other direction.\n\nNo documentation predates this recovery. Attempts to identify the alloy's composition through historical materials databases returned no matches."
+        },
+        {
+          "heading": "THE SABLE THRESHOLD INCIDENT",
+          "body": "Operative Hask deployed the Hollow Blade against the Pallid Watcher in Sector 2 of Omicron-7 during Operation Sable Threshold.\n\nThe Blade's resonance effect — a high-frequency void emission that has been documented to disrupt Class I-III entities — was received by the Watcher, modified in real time, inverted, and reflected back at the operative team.\n\nHask, Solari, and Brunt died. The Blade was dropped. Its last detected signal placed it in Sector 3, in the data vault access corridor — the same location where it was originally found.\n\nThis is where it started. This is where it went back.\n\nWe do not know what to do with this information."
+        },
+        {
+          "heading": "CURRENT STATUS",
+          "body": "The Hollow Blade is in Relay Station Omicron-7, Sector 3, presumably in or near the data vault access corridor.\n\nThe Pallid Watcher is maintaining active occupation of the station.\n\nRecovery Priority: MAXIMUM.\n\nOperational Feasibility: the committee has met four times. No proposal has been approved. We continue to maintain the MAXIMUM priority designation while acknowledging that we have no current plan to act on it.\n\nThis is not unusual. Priority designations and resource allocation are separate processes."
+        }
+      ],
+      "keywords": ["Hollow Blade", "Class V", "Omicron-7", "data vault", "Pallid Watcher", "Hask", "Sable Threshold", "void resonance", "auditory phenomena", "unknown alloy", "inversion"]
+    }
+  ]
+}

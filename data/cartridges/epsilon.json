@@ -1,0 +1,62 @@
+{
+  "id": "epsilon",
+  "label": "EPSILON",
+  "handwritten_label": "expanse / kaya / field notes",
+  "color": "#7A6040",
+  "access_level": 1,
+  "unlock_keywords": ["Wasting Expanse", "Outpost Kaya", "Kaya", "XR-881", "Glass Flats", "W5"],
+  "documents": [
+    {
+      "id": "wasting_expanse",
+      "title": "THE WASTING EXPANSE",
+      "subtitle": "Survey Document — Planetoid XR-881, Northern Hemisphere — Grid Reference W-Series",
+      "classification": "INTERNAL USE ONLY",
+      "page": "058",
+      "tags": ["LOCATION", "SURVEY", "ACTIVE OPERATIONS ZONE"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "OVERVIEW",
+          "body": "The Wasting Expanse designates a 400km survey zone in the northern hemisphere of Planetoid XR-881, which serves as the primary theater of Sector 9 operations. Terrain: low-gravity silicate desert with frozen methane deposits. Gravity: 0.3g standard. Atmosphere: negligible. Temperature: variable by cycle, range -140°C to +20°C.\n\nIMPORTANT: The terrain shifts. Maps older than one operational cycle should be considered unreliable. Survey teams have documented measurable changes in ground topology between consecutive surveys. The cause is unknown. This is noted in all operational briefings. Operatives continue to rely on outdated maps."
+        },
+        {
+          "heading": "POINTS OF INTEREST",
+          "body": "W1 — GLASS FLATS: A fused silicate plain approximately 40km across. Exceptionally smooth. Sound does not behave normally here — echoes arrive before the original sound, or not at all. Greyfield Choir sightings: 7 in the last 2 cycles.\n\nW2 — RELAY STATION OMICRON-7: The submerged derelict. 1.2km depth. Approximately 40% accessible. Do not go here without authorization, a full team, and more Spectral Cauls than you think you need. See separate report.\n\nW3 — THE PROCESSIONAL: A series of linear structures, monolithic, roughly 8-12 meters tall, arranged in a 2km corridor. No known origin. No documentation predates Cycle 4400. No void signatures detected. No threat assessment currently available because no one has been willing to go close enough to conduct one. This is not classified — it simply has not been prioritized.\n\nW4 — SINKFIELD ALPHA: A gravitational anomaly approximately 800m in diameter. Equipment failure rate within 100m of the perimeter: 80%. We do not know what is at the center. We have sent two survey drones. Both stopped transmitting as they crossed the perimeter. Their footage, up to the point of signal loss, showed nothing unusual.\n\nW5 — OUTPOST KAYA: The former forward operating base. Evacuated Cycle 4413. See separate file.\n\nW6 — THE WOUND: A planetary fissure approximately 200m wide and depth unknown. Void-matter emissions are consistently detected. Restricted. If you find yourself near the Wound without authorization, something has gone wrong."
+        },
+        {
+          "heading": "OPERATIONAL NOTES",
+          "body": "Sector 9 maintains a rotating presence in the Expanse. Standard rotation: 6-week cycles. Standard team size: 4-6 operatives. Standard morale: declining.\n\nOperatives frequently request transfer out of Expanse assignment after their first rotation. Most are approved after their third request. The backlog for Expanse reassignment has grown from 7 to 23 requests in the past cycle. Command has noted this trend. They have attributed it to 'cultural factors in the current cohort' and have initiated a wellness initiative."
+        }
+      ],
+      "keywords": ["Wasting Expanse", "XR-881", "Glass Flats", "Omicron-7", "Processional", "Sinkfield Alpha", "Outpost Kaya", "The Wound", "void-matter", "survey", "wellness initiative"]
+    },
+    {
+      "id": "outpost_kaya",
+      "title": "OUTPOST KAYA",
+      "subtitle": "Field Location File — Former Forward Operating Base — Grid W5",
+      "classification": "RESTRICTED",
+      "page": "048",
+      "tags": ["LOCATION", "ABANDONED", "ANOMALOUS ACTIVITY"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "HISTORY",
+          "body": "Outpost Kaya was established in Cycle 4413 as a forward operating base for deep-Expanse operations. It served this function for approximately 4 cycles before being evacuated during the early days of the Omicron Collapse as a precautionary measure.\n\nIt was a good base. The people who worked there liked it. There are personal effects still in the storage lockers — photographs, small items. When the evacuation was ordered, operatives were told to take only essential equipment. They expected to return within the week."
+        },
+        {
+          "heading": "CURRENT STATUS",
+          "body": "Unauthorized occupation detected, Cycle 4422.\n\nA survey team making routine passes over W5 observed that the dust disturbance patterns around Kaya's entrance indicated recent foot traffic. They landed to investigate.\n\nFindings:\n— All personal effects remain exactly as left. Photographs, small items, untouched.\n— Boot prints in the interior dust. Pattern suggests fourteen separate individuals entered and exited at different times.\n— All boot prints are identical. Same tread. Same size. Same depth. As if one person walked in and out fourteen times.\n— The prints do not overlap. They form neat, parallel trails.\n— The communication array, which was decommissioned and should have no power, had been recently activated."
+        },
+        {
+          "heading": "THE SIGNAL",
+          "body": "The communication array transmitted a signal on Cycle 4421.\n\nThe signal consisted of a single word: 4417. Repeated 4,417 times.\n\nTransmission duration: 6.8 hours.\n\nThe signal was received by three separate monitoring stations. All three initially logged it as an equipment error and queued it for maintenance review. A monitoring supervisor noticed the log entry and escalated it.\n\nThere is a note in the monitoring supervisor's escalation request that reads: 'I don't know who would do this. I don't know what it means. I know it means something.'\n\nThe supervisor was correct that it means something. Determining what it means is currently the subject of a classified sub-investigation that has been running for two cycles and has produced four pages of notes and no conclusions."
+        },
+        {
+          "heading": "FIELD NOTE — APPENDED BY UNKNOWN HAND",
+          "body": "The photographs on the storage lockers. Someone went through them.\n\nThey're still there, but they've been moved. Turned face-down, mostly. The ones left face-up — someone put them in order. Not alphabetical. Not by cycle date. We can't figure out what order. There are thirty-two photographs. They are in some specific sequence that we cannot parse.\n\nOne photograph was placed on top of the communication array. It shows a group of people at what appears to be a Sector 9 social gathering. Approximately twenty people. None of them are looking at the camera. They are all looking at the same point, just off-frame to the left.\n\nWe do not know who arranged the photographs. We do not know when. The boot prints did not reach the storage lockers."
+        }
+      ],
+      "keywords": ["Outpost Kaya", "W5", "4417", "boot prints", "communication array", "photographs", "signal", "abandoned", "unauthorized occupation"]
+    }
+  ]
+}

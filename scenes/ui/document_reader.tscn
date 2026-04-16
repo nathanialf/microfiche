@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://document_reader_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/document_reader.gd" id="1_doc_reader"]
+
+[node name="DocumentReader" type="Control"]
+script = ExtResource("1_doc_reader")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="ClassificationBar" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 22)
+
+[node name="ClassLabel" type="Label" parent="Layout/ClassificationBar"]
+size_flags_horizontal = 3
+text = "◈ CLASSIFICATION ◈"
+horizontal_alignment = 1
+
+[node name="PageNum" type="Label" parent="Layout/ClassificationBar"]
+text = "PAGE ---"
+horizontal_alignment = 2
+
+[node name="HSep1" type="HSeparator" parent="Layout"]
+
+[node name="Header" type="RichTextLabel" parent="Layout"]
+bbcode_enabled = true
+custom_minimum_size = Vector2(0, 60)
+fit_content = true
+scroll_active = false
+
+[node name="HSep2" type="HSeparator" parent="Layout"]
+
+[node name="TagsBar" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 18)
+
+[node name="MainArea" type="HBoxContainer" parent="Layout"]
+size_flags_vertical = 3
+
+[node name="ContentScroll" type="ScrollContainer" parent="Layout/MainArea"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Content" type="RichTextLabel" parent="Layout/MainArea/ContentScroll"]
+bbcode_enabled = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+fit_content = false
+scroll_active = false
+
+[node name="SidePanel" type="VBoxContainer" parent="Layout/MainArea"]
+custom_minimum_size = Vector2(120, 0)
+
+[node name="SidePanelHeader" type="Label" parent="Layout/MainArea/SidePanel"]
+text = "SECTIONS"
+
+[node name="SectionIndex" type="VBoxContainer" parent="Layout/MainArea/SidePanel"]
+size_flags_vertical = 3
+
+[node name="HSep3" type="HSeparator" parent="Layout"]
+
+[node name="FooterBar" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 24)
+
+[node name="BackBtn" type="Button" parent="Layout/FooterBar"]
+text = "◂ BACK [ESC]"
+
+[node name="FooterSpacer" type="Control" parent="Layout/FooterBar"]
+size_flags_horizontal = 3
+
+[node name="ScrollHint" type="Label" parent="Layout/FooterBar"]
+text = "Scroll: ↑↓ / Mouse Wheel"
+horizontal_alignment = 2
