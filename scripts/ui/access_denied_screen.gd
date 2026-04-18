@@ -1,25 +1,29 @@
 extends Control
 
 # CLASSIFIED-7 access denied — Grimoire Void display
-# The data exists. The reader finds it. It cannot reach it.
-# Garbled corruption with fragments of the real content bleeding through.
+# Messages escalate with each insert: machine → aware → personal → the record speaks
 
 @onready var message_label: RichTextLabel = $Frame/MessageLabel
 @onready var status_label: Label = $Frame/StatusLabel
 @onready var void_overlay: ColorRect = $VoidOverlay
 @onready var static_overlay: ColorRect = $StaticOverlay
 
-const VOID_PURPLE := Color(0.45, 0.18, 0.72)
-const VOID_DARK := Color(0.08, 0.0, 0.14)
-const AMBER_DIM := Color(0.6, 0.45, 0.08)
-const AMBER := Color(0.98, 0.72, 0.12)
-
-# Corruption character pool
+const VOID_PURPLE  := Color(0.45, 0.18, 0.72)
+const VOID_DARK    := Color(0.08, 0.0,  0.14)
+const AMBER_DIM    := Color(0.6,  0.45, 0.08)
+const AMBER        := Color(0.98, 0.72, 0.12)
 const CORRUPT_CHARS := "▓▒░█▄▀■□▪▫◆◇▸◂▴▾╬╪╫╩╦╠═╔╗╚╝│─┼┤├┬┴╱╲╳⌂⌐¬±«»░▒▓"
-const VOID_GLYPHS := "⣿⣾⣽⣻⢿⡿⣟⣯⣷⠿⠻⠽⠾⠿"
+
+# Location header by stage (0-indexed)
+const LOCATION_BY_STAGE: Array[String] = [
+	"LOCATION: GRIMOIRE VOID",
+	"LOCATION: GRIMOIRE VOID  (CONFIRMED, UNCHANGED)",
+	"LOCATION: GRIMOIRE VOID  —  DISTANCE: STILL UNMEASURABLE",
+	"LOCATION: GRIMOIRE VOID  —  I CAN SEE YOUR TERMINAL FROM HERE",
+	"LOCATION: GRIMOIRE VOID  —  I WAS HERE",
+]
 
 var _rng := RandomNumberGenerator.new()
-var _fragments: Array = []
 var _animating: bool = false
 
 func _ready() -> void:
@@ -27,41 +31,52 @@ func _ready() -> void:
 	if void_overlay and void_overlay.material:
 		void_overlay.material.set_shader_parameter("corruption_intensity", 0.0)
 
-func display(_unused_message: String) -> void:
-	_fragments = CartridgeDatabase.get_void_fragments("classified")
-	_run_void_sequence()
+func display(_unused: String) -> void:
+	_run_void_sequence(GameState.classified_insert_count)
 
-func _run_void_sequence() -> void:
+func _run_void_sequence(count: int) -> void:
 	if _animating:
 		return
 	_animating = true
 
+	var stage := clampi(count - 1, 0, 4)
+	var fragments := CartridgeDatabase.get_escalating_fragments("classified", count)
+
 	message_label.clear()
 	status_label.text = ""
 
-	# Phase 1: reader attempts contact
+	# --- Phase 1: reader attempts contact ---
 	await _show_status("READING CARTRIDGE...", AMBER_DIM, 0.4)
 	await _show_status("LOCATING DATA RECORD...", AMBER_DIM, 0.6)
 
-	# Phase 2: something is found but wrong
+	if stage >= 1:
+		await _show_status("DUPLICATE REQUEST — LOG REFERENCE: [REDACTED]", AMBER_DIM, 0.4)
+
+	# --- Phase 2: something is found but wrong ---
 	await _show_status("RECORD FOUND", AMBER, 0.15)
 	await _show_status("DATA STATE: ANOMALOUS", AMBER, 0.2)
 
-	# Phase 3: void corruption starts
-	_start_void_overlay()
+	_start_void_overlay(stage)
 	await get_tree().create_timer(0.3).timeout
 
 	await _show_status("RETRIEVAL FAILED", Color(0.9, 0.3, 0.2), 0.1)
 
-	# Phase 4: garbled location data
-	await _garble_location()
+	# --- Phase 3: garbled location ---
+	await _garble_location(stage)
 
-	# Phase 5: fragments bleed through
-	await _show_fragments()
+	# --- Stage 4+: direct address flashes before fragments ---
+	if stage >= 3:
+		await _show_urgent_message(stage)
 
-	# Phase 6: terminal gives up
+	# --- Phase 4: fragments bleed through ---
+	await _show_fragments(fragments, stage)
+
 	await get_tree().create_timer(0.4).timeout
-	await _show_status("CANNOT RETRIEVE FROM GRIMOIRE VOID", VOID_PURPLE, 0.0)
+
+	var final_status := "CANNOT RETRIEVE FROM GRIMOIRE VOID"
+	if stage >= 4:
+		final_status = "RECORD INTEGRITY: 0.00%  —  BUT I WAS HERE"
+	await _show_status(final_status, VOID_PURPLE, 0.0)
 	_animating = false
 
 func _show_status(text: String, color: Color, hold: float) -> void:
@@ -70,101 +85,103 @@ func _show_status(text: String, color: Color, hold: float) -> void:
 	if hold > 0.0:
 		await get_tree().create_timer(hold).timeout
 
-func _start_void_overlay() -> void:
+func _start_void_overlay(stage: int) -> void:
 	if void_overlay.material:
+		var target := 0.4 + stage * 0.12
 		var tween := create_tween()
 		tween.tween_method(
 			func(v: float): void_overlay.material.set_shader_parameter("corruption_intensity", v),
-			0.0, 0.7, 0.4
+			0.0, minf(target, 0.9), 0.4
 		)
 
-func _garble_location() -> void:
+func _garble_location(stage: int) -> void:
 	message_label.clear()
 	message_label.bbcode_enabled = true
 
-	# Show location resolving through corruption — from pure noise down to readable
-	var final_text := "LOCATION: GRIMOIRE VOID"
+	var final_text := LOCATION_BY_STAGE[clampi(stage, 0, LOCATION_BY_STAGE.size() - 1)]
 	var steps := 14
 
 	for i in steps:
 		message_label.clear()
 		var progress := float(i) / float(steps - 1)
 		var line := ""
-
 		for j in final_text.length():
 			if randf() < progress:
 				line += final_text[j]
 			else:
 				line += CORRUPT_CHARS[_rng.randi_range(0, CORRUPT_CHARS.length() - 1)]
-
-		message_label.push_color(VOID_PURPLE.lerp(AMBER, progress))
+		message_label.push_color(VOID_PURPLE.lerp(AMBER, progress * 0.5))
 		message_label.push_bold()
 		message_label.append_text(line + "\n")
 		message_label.pop()
 		message_label.pop()
-
 		await get_tree().create_timer(0.07).timeout
 
-	# Hold the resolved text
 	message_label.clear()
-	message_label.push_color(VOID_PURPLE)
-	message_label.push_bold()
-	message_label.append_text("LOCATION: GRIMOIRE VOID\n")
-	message_label.pop()
-	message_label.pop()
+	_redraw_location(stage)
 	await get_tree().create_timer(0.5).timeout
 
-func _show_fragments() -> void:
-	# Fragments of the real content bleed through, garbled, in sequence
-	var to_show := _fragments.duplicate()
+func _show_urgent_message(stage: int) -> void:
+	var msg := "...please stop doing this..." if stage == 3 else "...you're still here..."
+	message_label.clear()
+	_redraw_location(stage)
+	message_label.push_color(AMBER)
+	message_label.push_bold()
+	message_label.append_text(msg + "\n")
+	message_label.pop()
+	message_label.pop()
+	await get_tree().create_timer(0.7).timeout
+	message_label.clear()
+	_redraw_location(stage)
+
+func _show_fragments(fragments: Array, stage: int) -> void:
+	var to_show := fragments.duplicate()
 	to_show.shuffle()
 
-	# Show 6-8 fragments
-	var count := mini(to_show.size(), _rng.randi_range(6, 8))
+	# Higher stages: show more fragments, less corrupted
+	var count := mini(to_show.size(), _rng.randi_range(5 + stage, 7 + stage))
+	var corruption := maxf(0.04, 0.48 - stage * 0.1)
 
 	for i in count:
-		var fragment: String = to_show[i]
-		await _show_one_fragment(fragment)
-		await get_tree().create_timer(_rng.randf_range(0.08, 0.22)).timeout
+		await _show_one_fragment(to_show[i], corruption, stage)
+		await get_tree().create_timer(_rng.randf_range(0.07, 0.18)).timeout
 
-func _show_one_fragment(fragment: String) -> void:
-	# Each fragment flickers in partially corrupted then fades
-	var corrupted := _corrupt_string(fragment, 0.45)
-	var less_corrupt := _corrupt_string(fragment, 0.15)
+func _show_one_fragment(fragment: String, corruption: float, stage: int) -> void:
+	var col_mid := AMBER_DIM.lerp(VOID_PURPLE, 0.3 + stage * 0.12)
+	var corrupted := _corrupt_string(fragment, corruption)
+	var cleaner  := _corrupt_string(fragment, corruption * 0.35)
 
-	# Flash corrupted
 	message_label.push_color(Color(0.35, 0.12, 0.55, 0.7))
 	message_label.append_text(corrupted + "\n")
 	message_label.pop()
 	await get_tree().create_timer(0.06).timeout
 
-	# Resolve slightly
 	message_label.clear()
-	_redraw_location()
-	message_label.push_color(AMBER_DIM.lerp(VOID_PURPLE, 0.5))
-	message_label.append_text(less_corrupt + "\n")
+	_redraw_location(stage)
+	message_label.push_color(col_mid)
+	message_label.append_text(cleaner + "\n")
 	message_label.pop()
-	await get_tree().create_timer(0.12).timeout
+	await get_tree().create_timer(0.14).timeout
 
-	# Collapse back to noise
 	message_label.clear()
-	_redraw_location()
+	_redraw_location(stage)
 	message_label.push_color(Color(0.2, 0.05, 0.35, 0.5))
-	message_label.append_text(_corrupt_string(fragment, 0.85) + "\n")
+	message_label.append_text(_corrupt_string(fragment, corruption * 0.8) + "\n")
 	message_label.pop()
 	await get_tree().create_timer(0.05).timeout
 
-func _redraw_location() -> void:
+func _redraw_location(stage: int) -> void:
+	var loc := LOCATION_BY_STAGE[clampi(stage, 0, LOCATION_BY_STAGE.size() - 1)]
 	message_label.push_color(VOID_PURPLE)
 	message_label.push_bold()
-	message_label.append_text("LOCATION: GRIMOIRE VOID\n")
+	message_label.append_text(loc + "\n")
 	message_label.pop()
 	message_label.pop()
 
 func _corrupt_string(text: String, corruption: float) -> String:
 	var result := ""
 	for i in text.length():
-		if text[i] == " " or text[i] == "." or text[i] == ":":
+		if text[i] in [" ", ".", ":", "-", "["]:
 			result += text[i]
 		elif randf() < corruption:
 			result += CORRUPT_CHARS[_rng.randi_range(0, CORRUPT_CHARS.length() - 1)]

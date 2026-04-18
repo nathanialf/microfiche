@@ -1,0 +1,37 @@
+{
+  "id": "caul",
+  "label": "CAUL",
+  "handwritten_label": "spectral caul",
+  "color": "#6B4A6B",
+  "access_level": 1,
+  "documents": [
+    {
+      "id": "spectral_caul",
+      "title": "THE SPECTRAL CAUL",
+      "subtitle": "Equipment Profile — Class III Psi-Shielding — Mark IV Revision",
+      "classification": "INTERNAL USE ONLY",
+      "page": "030",
+      "tags": ["EQUIPMENT", "PSI-SHIELDING", "VOID-DERIVED"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "DESCRIPTION",
+          "body": "The Spectral Caul is a close-fitting mesh hood with 12 neural contact points distributed across the crown, temples, and base of the skull. It is worn in direct contact with the scalp. Its function is to dampen and filter void emanations before they reach the wearer's cognitive systems."
+        },
+        {
+          "heading": "EFFICACY",
+          "body": "Against Class I-II void emanations: highly effective. Extended duration possible with standard monitoring.\n\nAgainst Class III emanations: effective with significant attenuation. Operatives report 'pressure' behind the eyes and occasional mild aphasia at extended durations.\n\nAgainst Class IV emanations: provides approximately 8-15 additional minutes of cognitive coherence before standard exposure progression. It does not protect you from the Pallid Watcher. It only slows the process.\n\nThis limitation is documented internally. Operatives deploying to Class IV encounter zones should be informed. Whether they are informed is at the discretion of operational command."
+        },
+        {
+          "heading": "DEVELOPMENT",
+          "body": "The Spectral Caul Mark I was developed in Cycles 4418-4419, following the Omicron Collapse, using neural tissue samples from void-exposed casualties. This is not disclosed in standard equipment briefings.\n\nThe Mark IV revision has improved efficacy by approximately 23% over the Mark I. The development methodology has not changed."
+        },
+        {
+          "heading": "AVAILABILITY",
+          "body": "34 units currently active. Demand consistently exceeds supply. Allocation is determined by Article 4 metric rankings — high performers receive priority assignment.\n\nOperatives who have raised questions about the allocation policy are reminded that it exists to ensure the most effective use of limited resources. Operatives who have raised questions about what 'limited resources' means given that demand has exceeded supply for four consecutive cycles are reminded of Article 1."
+        }
+      ],
+      "keywords": ["Spectral Caul", "psi-shielding", "neural contact", "void emanation", "Class IV", "Pallid Watcher", "neural tissue", "allocation", "Mark IV"]
+    }
+  ]
+}

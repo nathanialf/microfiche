@@ -51,7 +51,7 @@ func populate(cartridge_id: String, docs: Array) -> void:
 		list.add_child(sep)
 
 func _on_back() -> void:
-	var ui := get_tree().get_first_node_in_group("terminal_ui")
+	var ui := get_tree().get_first_node_in_group("microfiche_ui")
 	if ui:
 		ui.show_idle_screen()
 		ui.close_and_return()

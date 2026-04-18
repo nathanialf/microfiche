@@ -3,14 +3,15 @@ extends Node3D
 @onready var objects: Node3D = $Objects
 @onready var terminal_glow: OmniLight3D = $Lighting/TerminalGlow
 
-# Desk positions for dynamically spawned cartridges
-# Placed as if someone set them down — slight angle variation
+# Cartridge spawn positions on the semicircle desk arc.
+# Desk top Y = 0.98, cart center Y = 0.98 + half_cart_height (~0.17 for 1.25× scale).
+# The visible drop-in animation tweens from +0.5 above to these positions.
 const SPAWN_TRANSFORMS := [
-	[Vector3(0, deg_to_rad(12),  deg_to_rad(3)),  Vector3(1.08, 0.865, -1.38)],
-	[Vector3(0, deg_to_rad(-8),  deg_to_rad(-2)), Vector3(1.28, 0.865, -1.41)],
-	[Vector3(0, deg_to_rad(22),  deg_to_rad(4)),  Vector3(1.48, 0.865, -1.37)],
-	[Vector3(0, deg_to_rad(-5),  deg_to_rad(1)),  Vector3(1.68, 0.865, -1.42)],
-	[Vector3(0, deg_to_rad(15),  deg_to_rad(-3)), Vector3(1.88, 0.865, -1.39)],
+	[Vector3(0, deg_to_rad(12),  deg_to_rad(3)),  Vector3(-0.32, 1.15, -1.20)],
+	[Vector3(0, deg_to_rad(-8),  deg_to_rad(-2)), Vector3(-0.10, 1.15, -1.27)],
+	[Vector3(0, deg_to_rad(22),  deg_to_rad(4)),  Vector3( 0.18, 1.15, -1.22)],
+	[Vector3(0, deg_to_rad(-5),  deg_to_rad(1)),  Vector3(-0.44, 1.15, -1.08)],
+	[Vector3(0, deg_to_rad(15),  deg_to_rad(-3)), Vector3( 0.38, 1.15, -1.10)],
 ]
 
 var _spawned: Dictionary = {}
@@ -45,7 +46,7 @@ func _spawn_cartridge(cartridge_id: String) -> void:
 		instance.rotation = xform[0]
 		instance.position = xform[1]
 	else:
-		instance.position = Vector3(0.5 + slot_idx * 0.14, 0.865, -1.40)
+		instance.position = Vector3(-0.6 + (slot_idx % 6) * 0.22, 1.15, -1.15)
 
 	# Drop in from above
 	var land_pos := instance.position

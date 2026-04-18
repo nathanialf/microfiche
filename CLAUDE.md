@@ -6,15 +6,16 @@
 ## Core Loop
 - Player sits at a cramped desk with mechanical hands
 - Microfiche reader terminal (amber CRT, retro) in front of them
-- Cartridges can be slotted into the reader
+- Cartridges can be slotted into the reader — one document per cartridge
 - Documents contain classified in-universe text (Amazon experience as sci-fi allegory)
 - Reading documents surfaces keywords → keywords unlock new cartridges
 - One cartridge (CLASSIFIED-7) is always present but always access-denied — messages get increasingly personal with each insert attempt
-- Notepad [N] for writing observations (Marathon 2026 PDA style, auto-saves)
+- Notepad lives on the separate computer terminal (not the microfiche)
 
 ## Cartridge Progression
-- **Start with:** ALPHA (intake/orientation — Threshold Accords + Omicron Collapse), BETA (personnel/mox — Yael Mox + Sable Threshold), CLASSIFIED-7 (access denied)
-- **Unlock via keywords:** GAMMA (vex/equipment), DELTA (entities/glass litany), EPSILON (expanse/kaya), ZETA (watcher/hollow blade)
+One document per cartridge. Cart IDs use the doc's short name (threshold, mox, etc.).
+- **Start with:** THRESHOLD, OMICRON, MOX, SABLE, CLASSIFIED-7
+- **Unlock via keywords:** VEX, CAUL, CHOIR, LITANY, EXPANSE, KAYA, WATCHER, BLADE
 
 ## Content Allegory
 The sci-fi setting maps to Amazon workplace experience:
@@ -45,14 +46,13 @@ The sci-fi setting maps to Amazon workplace experience:
 - Mouse look (constrained — player is seated)
 - [E] Interact / insert cartridge
 - [R] Eject cartridge
-- [N] Toggle notepad
 - [ESC] Back / cancel
 - Mouse wheel: scroll documents
 
 ## Key Files
 - `scripts/autoloads/game_state.gd` — central state, save/load
 - `scripts/autoloads/cartridge_database.gd` — loads all JSON data
-- `scripts/ui/terminal_ui.gd` — master UI controller
+- `scripts/ui/microfiche_ui.gd` — master UI controller (boot / idle / document / access-denied)
 - `scripts/ui/document_reader.gd` — document display + keyword highlighting
-- `data/cartridges/*.json` — all content
+- `data/cartridges/*.json` — all content (one doc per cartridge)
 - `data/keywords.json` — keyword→cartridge unlock map

@@ -1,0 +1,49 @@
+{
+  "id": "threshold",
+  "label": "THRESHOLD",
+  "handwritten_label": "intake / accords",
+  "color": "#8B7355",
+  "access_level": 0,
+  "documents": [
+    {
+      "id": "threshold_accords",
+      "title": "THE THRESHOLD ACCORDS",
+      "subtitle": "Binding Operational Framework — Ratified Cycle 4418",
+      "classification": "INTERNAL USE ONLY",
+      "page": "075",
+      "tags": ["POLICY", "BINDING", "FOUNDATIONAL"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "PREAMBLE",
+          "body": "In the aftermath of the Omicron Collapse, it became clear that existing protocols were insufficient to manage the scale and nature of the incursion. The Threshold Accords represent a binding operational framework intended to standardize response, classify all relevant intelligence, and ensure the continuity of productive operations within affected sectors.\n\nAll personnel assigned to Sector 9 are required to acknowledge receipt and comprehension of this document prior to their first operational cycle. Failure to sign constitutes grounds for immediate reassignment."
+        },
+        {
+          "heading": "ARTICLE 1 — CLASSIFICATION",
+          "body": "All intelligence pertaining to void incursions, entity contacts, and personnel affected by void exposure is classified Omega-level by default. Unauthorized disclosure to non-Sector personnel constitutes a breach of operational security and will be addressed accordingly.\n\nPersonnel are reminded that 'addressing breaches accordingly' is not a euphemism. Reference: Operative Counselor Resolution 14-B."
+        },
+        {
+          "heading": "ARTICLE 4 — PRODUCTIVITY METRICS",
+          "body": "Sector 9 operatives are evaluated on a continuous performance cycle. Metrics are compiled from:\n\n— Mission completion rate\n— Equipment return rate\n— Cognitive coherence scores (administered bi-weekly)\n— Incident report submission timeliness\n— Peer assessment scores\n\nOperatives falling below the 85th percentile on any single metric for two consecutive cycles will be placed on Supervised Status. Three consecutive cycles below threshold triggers automatic reassignment review.\n\nNote: Supervised Status does not affect your base compensation. It does affect your priority score for equipment requisition and shift selection."
+        },
+        {
+          "heading": "ARTICLE 7 — VOID-EXPOSED PERSONNEL",
+          "body": "Any operative confirmed to have experienced direct void exposure is subject to mandatory cognitive monitoring for a minimum of 12 operational cycles. During this period:\n\n— The operative may not serve in leadership capacity\n— The operative's incident reports require co-signature from a non-exposed supervisor\n— The operative's stated perceptions during the monitoring period are classified as Unreliable Testimony and cannot form the basis of formal complaints\n\nThis article exists to protect the operative and the integrity of Sector 9's data. It is not punitive."
+        },
+        {
+          "heading": "ARTICLE 9 — EQUIPMENT",
+          "body": "All void-derived materials and equipment remain property of Sector 9 regardless of operational context. Operatives do not own their gear. Gear is assigned. Gear may be reassigned at any time.\n\nLoss of gear in the field is documented. Repeated loss triggers a review under Article 4."
+        },
+        {
+          "heading": "ARTICLE 12 — THE CLOSING PROVISION",
+          "body": "In situations where a sector or facility cannot be contained, Sector 9 Command retains the authority to classify it as a Total Loss Zone and cease all recovery operations. Personnel within a declared Total Loss Zone at time of classification are presumed non-recoverable and are administratively closed.\n\nThis provision has been exercised once. Cycle 4417. We do not discuss the specifics publicly. Those who were there understand."
+        },
+        {
+          "heading": "ACKNOWLEDGMENT",
+          "body": "By continuing your assignment, you acknowledge that you have read, understood, and agree to operate within the Threshold Accords. You acknowledge that Sector 9 exists to serve a necessary function, that the work is hard, and that not everyone makes it.\n\nWelcome aboard. We're glad you're here."
+        }
+      ],
+      "keywords": ["Omicron", "Sector 9", "Omega", "Article 7", "Article 12", "Supervised Status", "Total Loss", "void exposure", "cognitive monitoring"]
+    }
+  ]
+}

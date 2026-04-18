@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://reader_scene"]
+[gd_scene load_steps=26 format=3 uid="uid://reader_scene"]
 
 [ext_resource type="Script" path="res://scripts/objects/microfiche_reader.gd" id="1_reader"]
-[ext_resource type="PackedScene" uid="uid://terminal_ui_scene" path="res://scenes/ui/terminal_ui.tscn" id="2_terminal_ui"]
-[ext_resource type="Script" path="res://scripts/objects/screen_viewport_setup.gd" id="3_screen_setup"]
+[ext_resource type="PackedScene" uid="uid://microfiche_ui_scene" path="res://scenes/ui/microfiche_ui.tscn" id="2_microfiche_ui"]
+[ext_resource type="Script" path="res://scripts/objects/microfiche_slot_zone.gd" id="4_slot_zone"]
+[ext_resource type="Script" path="res://scripts/objects/microfiche_display_zone.gd" id="5_display_zone"]
 
 ; ── Meshes ────────────────────────────────────────────────────────────────────
 
@@ -10,10 +11,10 @@
 size = Vector3(0.76, 0.44, 0.48)
 
 [sub_resource type="BoxMesh" id="Mesh_hood"]
-size = Vector3(0.32, 0.22, 0.10)
+size = Vector3(0.27, 0.36, 0.10)
 
 [sub_resource type="QuadMesh" id="Mesh_screen"]
-size = Vector2(0.275, 0.195)
+size = Vector2(0.27, 0.36)
 
 [sub_resource type="BoxMesh" id="Mesh_keyboard"]
 size = Vector3(0.72, 0.032, 0.25)
@@ -42,14 +43,6 @@ albedo_color = Color(0.055, 0.048, 0.040, 1)
 roughness = 0.78
 metallic = 0.12
 
-[sub_resource type="StandardMaterial3D" id="Mat_screen_idle"]
-albedo_color = Color(0.01, 0.02, 0.01, 1)
-roughness = 0.06
-metallic = 0.05
-emission_enabled = true
-emission = Color(0.02, 0.06, 0.02, 1)
-emission_energy_multiplier = 0.4
-
 [sub_resource type="StandardMaterial3D" id="Mat_keyboard"]
 albedo_color = Color(0.60, 0.61, 0.62, 1)
 roughness = 0.86
@@ -69,8 +62,13 @@ roughness = 1.0
 
 ; ── Collision ─────────────────────────────────────────────────────────────────
 
-[sub_resource type="BoxShape3D" id="Shape_interact"]
-size = Vector3(0.82, 0.56, 0.68)
+; Slot interaction zone — covers the cart slot opening on the front face.
+[sub_resource type="BoxShape3D" id="Shape_slot_zone"]
+size = Vector3(0.16, 0.12, 0.06)
+
+; Display interaction zone — covers the tilted screen surface.
+[sub_resource type="BoxShape3D" id="Shape_display_zone"]
+size = Vector3(0.28, 0.36, 0.04)
 
 ; ── Scene tree ────────────────────────────────────────────────────────────────
 
@@ -105,34 +103,37 @@ surface_material_override/0 = SubResource("Mat_handle")
 ; Hood protrudes 0.05 m forward from body front face (body front = +0.22 local Z)
 
 [node name="ScreenHood" type="MeshInstance3D" parent="TerminalBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.07, 0.30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06, 0.04, 0.30)
 mesh = SubResource("Mesh_hood")
 surface_material_override/0 = SubResource("Mat_hood")
 
-; Screen node: 24° X tilt (top toward player), positioned at front of hood
-; Z=0.37 clears the hood front face (hood center=0.30 + half_depth=0.05 = 0.35 front face, +0.02 margin)
+; Screen node: 24° X tilt (top toward player). Z must clear the hood front face
+; AFTER tilt — the quad's bottom sits at screen_z - 0.407*(h/2). For h=0.36 that's
+; screen_z - 0.073. Hood front face at Z=0.35, so screen_z ≥ 0.43 keeps the bottom
+; (and the DisplayZone collider) out of the hood box.
 [node name="Screen" type="Node3D" parent="TerminalBody"]
-transform = Transform3D(1, 0, 0, 0, 0.914, 0.407, 0, -0.407, 0.914, -0.06, 0.072, 0.37)
-script = ExtResource("3_screen_setup")
+transform = Transform3D(1, 0, 0, 0, 0.914, 0.407, 0, -0.407, 0.914, -0.06, 0.042, 0.44)
+
+; SubViewport first so the ViewportTexture's NodePath can resolve at load-time.
+[node name="SubViewport" type="SubViewport" parent="TerminalBody/Screen"]
+size = Vector2i(480, 640)
+render_target_clear_mode = 0
+render_target_update_mode = 4
+transparent_bg = false
+disable_3d = true
+handle_input_locally = true
 
 [node name="ScreenSurface" type="MeshInstance3D" parent="TerminalBody/Screen"]
 mesh = SubResource("Mesh_screen")
-surface_material_override/0 = SubResource("Mat_screen_idle")
 
-[node name="SubViewport" type="SubViewport" parent="TerminalBody/Screen"]
-size = Vector2i(640, 400)
-render_target_clear_mode = 0
-render_target_update_mode = 3
-transparent_bg = false
-
-[node name="TerminalUI" parent="TerminalBody/Screen/SubViewport" instance=ExtResource("2_terminal_ui")]
+[node name="MicroficheUI" parent="TerminalBody/Screen/SubViewport" instance=ExtResource("2_microfiche_ui")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScreenGlow" type="OmniLight3D" parent="TerminalBody/Screen"]
-light_color = Color(0.95, 0.72, 0.12, 1)
+light_color = Color(0.18, 1.0, 0.28, 1)
 light_energy = 0.8
 omni_range = 0.80
 omni_attenuation = 2.0
@@ -144,31 +145,43 @@ transform = Transform3D(1, 0, 0, 0, 0.985, 0.174, 0, -0.174, 0.985, 0.0, -0.178,
 mesh = SubResource("Mesh_keyboard")
 surface_material_override/0 = SubResource("Mat_keyboard")
 
-; ── Cartridge slot — right side, front face ───────────────────────────────────
+; ── Cartridge slot — right side, front face, horizontal floppy-drive orientation ──
+; R_z(-90°): local X→world -Y, local Y→world +X, local Z stays +Z (toward player)
+; Housing in world: 0.12m wide (X) × 0.068m tall (Y) × 0.028m deep (Z) — landscape ✓
 
 [node name="SlotHousing" type="MeshInstance3D" parent="TerminalBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.065, 0.234)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.29, -0.065, 0.234)
 mesh = SubResource("Mesh_slot_housing")
 surface_material_override/0 = SubResource("Mat_slot")
 
 [node name="SlotOpening" type="MeshInstance3D" parent="TerminalBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.065, 0.249)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.29, -0.065, 0.249)
 mesh = SubResource("Mesh_slot_opening")
 surface_material_override/0 = SubResource("Mat_slot_opening")
 
 [node name="CartridgeSlot" type="Node3D" parent="TerminalBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.065, 0.249)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0.29, -0.065, 0.249)
 
-[node name="SlotLight" type="OmniLight3D" parent="TerminalBody/CartridgeSlot"]
-light_energy = 0.0
-omni_range = 0.10
-omni_attenuation = 3.0
+; ── Interaction zones — split into slot + display ─────────────────────────────
+; SlotZone: insert held cart / eject loaded cart.
+; DisplayZone: E → enter view mode (camera tweens in front of screen).
 
-; ── Interaction volume ────────────────────────────────────────────────────────
-
-[node name="Interaction" type="StaticBody3D" parent="."]
+[node name="SlotZone" type="StaticBody3D" parent="TerminalBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29, -0.065, 0.254)
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("4_slot_zone")
 
-[node name="Shape" type="CollisionShape3D" parent="Interaction"]
-shape = SubResource("Shape_interact")
+[node name="Shape" type="CollisionShape3D" parent="TerminalBody/SlotZone"]
+shape = SubResource("Shape_slot_zone")
+
+[node name="DisplayZone" type="StaticBody3D" parent="TerminalBody"]
+; Matches screen tilt (24° X tilt) and sits just in front of the screen surface.
+transform = Transform3D(1, 0, 0, 0, 0.914, 0.407, 0, -0.407, 0.914, -0.06, 0.042, 0.45)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("5_display_zone")
+screen_target_path = NodePath("../Screen")
+
+[node name="Shape" type="CollisionShape3D" parent="TerminalBody/DisplayZone"]
+shape = SubResource("Shape_display_zone")

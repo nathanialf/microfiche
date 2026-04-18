@@ -1,0 +1,37 @@
+{
+  "id": "omicron",
+  "label": "OMICRON",
+  "handwritten_label": "the collapse",
+  "color": "#8B7355",
+  "access_level": 0,
+  "documents": [
+    {
+      "id": "omicron_collapse",
+      "title": "THE OMICRON COLLAPSE",
+      "subtitle": "Archive Fragment — Restricted Access — Cycle 4417",
+      "classification": "OMEGA LEVEL",
+      "page": "071",
+      "tags": ["INCIDENT", "HISTORICAL", "VOID EVENT"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "SUMMARY",
+          "body": "The Omicron Collapse refers to the 47-operational-cycle cascading void incursion that consumed Relay Station Omicron-7 between Cycles 4415 and 4417. It remains the most significant void event in recorded human history. 22 personnel were stationed at Omicron-7 at the time of the initial incursion. One survived."
+        },
+        {
+          "heading": "TIMELINE",
+          "body": "CYCLE 4415.1 — First anomalous signal detected. Origin: internal. The signal appeared to be coming from inside the receiver.\n\nCYCLE 4415.4 — 14 of 22 personnel report identical auditory hallucinations: a low, steady counting. Numbers. Always backward.\n\nCYCLE 4416.2 — Structural surveys reveal spatial inconsistencies. Corridors measuring longer than blueprinted. Maintenance shaft B-7, documented at 12 meters, measured at 300+ on three separate surveys. Survey team requested reassignment. Reassignment denied due to operational necessity.\n\nCYCLE 4416.4 — Two specialists assigned to resolve Shaft B-7 discrepancy. They entered the shaft. They did not exit. The shaft measured 12 meters again the following day.\n\nCYCLE 4417.1 — Pallid Watcher manifestation, reactor chamber. Primary encounter. 10 of 11 remaining personnel experienced what is now classified as 'erasure of self's narrative coherence.' They could not remember their own names. They could not remember what they had been doing. They stood still and waited.\n\nCYCLE 4417.3 — Operation Sable Threshold deployed. Six operatives. See separate report.\n\nCYCLE 4417.3 (END) — Sole survivor: Yael Mox, recovered from exterior hull, vacuum exposure, alive."
+        },
+        {
+          "heading": "CONTRIBUTING FACTORS",
+          "body": "A post-collapse review identified several contributing factors that have since been addressed:\n\n— Personnel reports of anomalous phenomena were flagged as 'stress indicators' and routed to occupational wellness rather than operational command. This routing has been corrected.\n\n— Requests for early evacuation were denied three times on the basis of mission-critical data collection requirements. The data was not recovered.\n\n— Cognitive monitoring protocols did not exist at the time. They now do.\n\nThe review board concluded that the outcome, while tragic, produced information essential to the development of the Threshold Accords. Omicron-7 did not die in vain."
+        },
+        {
+          "heading": "WHAT WAS LEARNED",
+          "body": "The void does not respond to productivity metrics. It does not care about your output rate, your compliance score, or your acknowledgment of the relevant frameworks. It will take you anyway.\n\nWhat this means for operational doctrine is still being debated at the command level. In the meantime, meet your metrics. It's what we can control."
+        }
+      ],
+      "keywords": ["Omicron-7", "4417", "Pallid Watcher", "Yael Mox", "Sable Threshold", "narrative coherence", "Relay Station", "void incursion", "erasure"]
+    }
+  ]
+}

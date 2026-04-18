@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://desk_ring_scene"]
+
+[ext_resource type="Script" path="res://scripts/objects/desk_ring.gd" id="1_desk_ring"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_top"]
+albedo_color = Color(0.50, 0.32, 0.16, 1)
+roughness = 0.55
+metallic = 0.02
+
+[sub_resource type="StandardMaterial3D" id="Mat_fascia"]
+albedo_color = Color(0.34, 0.21, 0.10, 1)
+roughness = 0.80
+metallic = 0.02
+
+[node name="DeskRing" type="Node3D"]
+script = ExtResource("1_desk_ring")
+top_material = SubResource("Mat_top")
+fascia_material = SubResource("Mat_fascia")
+
+[node name="TopMesh" type="MeshInstance3D" parent="."]
+
+[node name="FasciaMesh" type="MeshInstance3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Shape" type="CollisionShape3D" parent="StaticBody3D"]

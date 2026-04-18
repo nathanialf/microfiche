@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cartridge_slot_scene"]
+
+[ext_resource type="Script" path="res://scripts/objects/cartridge_slot.gd" id="1_slot"]
+
+; Slot collision — same local axes as the cart it holds (R_x(-90°) is applied
+; at instance time in room.tscn). The slot must stick OUT further than the
+; cart colliders in adjacent slots, so rays can reach an empty slot between
+; two occupied ones. Height shrunk to avoid overlap between stacked slots.
+; X = cart width span, Y = cart length (depth out of tower), Z = cart thickness.
+[sub_resource type="BoxShape3D" id="Shape_slot"]
+size = Vector3(0.180, 0.420, 0.034)
+
+[node name="CartridgeSlot" type="Node3D"]
+script = ExtResource("1_slot")
+
+[node name="SlotCollider" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Shape" type="CollisionShape3D" parent="SlotCollider"]
+shape = SubResource("Shape_slot")

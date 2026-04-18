@@ -13,7 +13,12 @@ func _ready() -> void:
 	_load_keyword_data()
 
 func _load_all_cartridges() -> void:
-	var cartridge_ids: Array[String] = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta", "classified"]
+	var cartridge_ids: Array[String] = [
+		"threshold", "omicron", "mox", "sable",
+		"vex", "caul", "choir", "litany",
+		"expanse", "kaya", "watcher", "blade",
+		"classified",
+	]
 	for cid: String in cartridge_ids:
 		var path: String = CARTRIDGE_DIR + cid + ".json"
 		var file := FileAccess.open(path, FileAccess.READ)
@@ -72,6 +77,14 @@ func is_grimoire_void(cartridge_id: String) -> bool:
 func get_void_fragments(cartridge_id: String) -> Array:
 	var c := get_cartridge(cartridge_id)
 	return c.get("void_fragments", [])
+
+func get_escalating_fragments(cartridge_id: String, insert_count: int) -> Array:
+	var c := get_cartridge(cartridge_id)
+	var stages: Array = c.get("escalating_fragments", [])
+	if stages.is_empty():
+		return get_void_fragments(cartridge_id)
+	var idx := clampi(insert_count - 1, 0, stages.size() - 1)
+	return stages[idx]
 
 func get_documents(cartridge_id: String) -> Array:
 	var c := get_cartridge(cartridge_id)

@@ -1,59 +1,152 @@
-[gd_scene load_steps=6 format=3 uid="uid://cartridge_scene"]
+[gd_scene load_steps=15 format=3 uid="uid://cartridge_scene"]
 
 [ext_resource type="Script" path="res://scripts/objects/cartridge.gd" id="1_cartridge"]
 
-[sub_resource type="BoxMesh" id="CartridgeBody"]
-size = Vector3(0.055, 0.095, 0.018)
+; N64 dev-cart silhouette — arched top, raised label panel, vent slits.
+; Overall footprint stays 120mm (X) × 260mm (Y) × 30mm (Z) so all existing
+; slot / holder math continues to work.
+;
+; Local axes in the upright reference pose:
+;   +Y = up (arched top at +Y extreme, connector at -Y extreme)
+;   +Z = label face (front, where the writable paper label sits)
+;   +X = cart's right
+;
+; Silhouette is approximated with multiple BoxMesh primitives — good enough
+; from gameplay distance, cheap to render, easy to iterate.
 
-[sub_resource type="BoxMesh" id="LabelMesh"]
-size = Vector3(0.048, 0.055, 0.001)
+; ── Body segments ─────────────────────────────────────────────────────────────
+; Lower (wider) body: full 120mm wide × 200mm tall block.
+; Upper body tapers: two short shoulders + an arched top cap.
 
-[sub_resource type="BoxMesh" id="RidgeMesh"]
-size = Vector3(0.055, 0.008, 0.018)
+[sub_resource type="BoxMesh" id="Mesh_body_lower"]
+size = Vector3(0.120, 0.200, 0.030)
 
-[sub_resource type="StandardMaterial3D" id="Mat_cartridge_default"]
-albedo_color = Color(0.5, 0.45, 0.35, 1)
-roughness = 0.85
+[sub_resource type="BoxMesh" id="Mesh_shoulder"]
+size = Vector3(0.018, 0.040, 0.030)
 
-[sub_resource type="StandardMaterial3D" id="Mat_label"]
+[sub_resource type="BoxMesh" id="Mesh_arch_cap"]
+; Inner plateau of the arched top: narrower + slightly taller than shoulders.
+size = Vector3(0.088, 0.040, 0.030)
+
+[sub_resource type="BoxMesh" id="Mesh_arch_crown"]
+; Top cap — rounded silhouette is implied by the stepped shoulders + arch cap
+; + crown stacking. Keep as a box so no "axis direction" artifacts appear when
+; the cart is re-rotated into the reader slot.
+size = Vector3(0.060, 0.018, 0.030)
+
+; ── Label panel — raised paper area where the handwritten label goes ─────────
+
+[sub_resource type="BoxMesh" id="Mesh_label"]
+size = Vector3(0.096, 0.150, 0.002)
+
+; ── Vent slits at lower body corners ─────────────────────────────────────────
+
+[sub_resource type="BoxMesh" id="Mesh_vent"]
+size = Vector3(0.020, 0.018, 0.004)
+
+; ── Edge connector at base ────────────────────────────────────────────────────
+
+[sub_resource type="BoxMesh" id="Mesh_connector"]
+size = Vector3(0.094, 0.014, 0.020)
+
+; ── Materials ─────────────────────────────────────────────────────────────────
+
+[sub_resource type="StandardMaterial3D" id="Mat_plastic"]
+albedo_color = Color(0.68, 0.68, 0.67, 1)
+roughness = 0.82
+metallic = 0.04
+
+[sub_resource type="StandardMaterial3D" id="Mat_label_default"]
 albedo_color = Color(0.92, 0.88, 0.78, 1)
-roughness = 1.0
+roughness = 0.96
 
-[sub_resource type="StandardMaterial3D" id="Mat_ridge"]
-albedo_color = Color(0.3, 0.28, 0.22, 1)
-metallic = 0.3
-roughness = 0.6
+[sub_resource type="StandardMaterial3D" id="Mat_vent"]
+albedo_color = Color(0.08, 0.07, 0.06, 1)
+roughness = 0.95
 
-[sub_resource type="BoxShape3D" id="CartridgeCollision"]
-size = Vector3(0.06, 0.10, 0.025)
+[sub_resource type="StandardMaterial3D" id="Mat_connector"]
+albedo_color = Color(0.55, 0.50, 0.35, 1)
+roughness = 0.45
+metallic = 0.60
+
+; ── Collision ─────────────────────────────────────────────────────────────────
+; Box spans the full scaled mesh (connector bottom at cart-local Y ≈ -0.219,
+; crown top at ≈ +0.165). Centered on mesh mid-point, not cart root.
+
+[sub_resource type="BoxShape3D" id="Shape_collider"]
+size = Vector3(0.168, 0.400, 0.050)
+
+; ── Tree ──────────────────────────────────────────────────────────────────────
 
 [node name="Cartridge" type="Node3D"]
 script = ExtResource("1_cartridge")
 
 [node name="CartridgeMesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("CartridgeBody")
-surface_material_override/0 = SubResource("Mat_cartridge_default")
+mesh = SubResource("Mesh_body_lower")
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, -0.038, 0)
+surface_material_override/0 = SubResource("Mat_plastic")
 
-[node name="LabelMesh" type="MeshInstance3D" parent="CartridgeMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -0.0095)
-mesh = SubResource("LabelMesh")
-surface_material_override/0 = SubResource("Mat_label")
+; Left shoulder (at +X local… tuned so combined body reaches ~ 120mm width at bottom,
+; tapers to ~88mm at the arched cap).
+[node name="ShoulderLeft" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.051, 0.120, 0)
+mesh = SubResource("Mesh_shoulder")
+surface_material_override/0 = SubResource("Mat_plastic")
 
-[node name="TopRidge" type="MeshInstance3D" parent="CartridgeMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.051, 0)
-mesh = SubResource("RidgeMesh")
-surface_material_override/0 = SubResource("Mat_ridge")
+[node name="ShoulderRight" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, 0.120, 0)
+mesh = SubResource("Mesh_shoulder")
+surface_material_override/0 = SubResource("Mat_plastic")
+
+; Arched cap: plateau that spans the inner portion of the top, slightly taller
+; than the shoulders, so the silhouette reads as an arch.
+[node name="ArchCap" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120, 0)
+mesh = SubResource("Mesh_arch_cap")
+surface_material_override/0 = SubResource("Mat_plastic")
+
+; Crown — final step at top of the arched profile. Narrower than arch cap so
+; the stepped silhouette reads as an arch from any angle.
+[node name="ArchCrown" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.149, 0)
+mesh = SubResource("Mesh_arch_crown")
+surface_material_override/0 = SubResource("Mat_plastic")
+
+; ── Label on +Z face (raised slightly proud, centered on the flat body) ──────
+
+[node name="LabelPanel" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010, 0.016)
+mesh = SubResource("Mesh_label")
+surface_material_override/0 = SubResource("Mat_label_default")
+
+; ── Vent slits at lower corners (-Y area of body) ────────────────────────────
+
+[node name="VentLeft" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046, -0.080, 0.015)
+mesh = SubResource("Mesh_vent")
+surface_material_override/0 = SubResource("Mat_vent")
+
+[node name="VentRight" type="MeshInstance3D" parent="CartridgeMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.046, -0.080, 0.015)
+mesh = SubResource("Mesh_vent")
+surface_material_override/0 = SubResource("Mat_vent")
+
+; ── Edge connector at base (-Y) ───────────────────────────────────────────────
 
 [node name="BottomConnector" type="MeshInstance3D" parent="CartridgeMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051, 0)
-mesh = SubResource("RidgeMesh")
-surface_material_override/0 = SubResource("Mat_ridge")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.138, 0)
+mesh = SubResource("Mesh_connector")
+surface_material_override/0 = SubResource("Mat_connector")
+
+; ── Collider ──────────────────────────────────────────────────────────────────
 
 [node name="CartridgeCollider" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.028, 0)
 collision_layer = 2
+
 [node name="Shape" type="CollisionShape3D" parent="CartridgeCollider"]
-shape = SubResource("CartridgeCollision")
+shape = SubResource("Shape_collider")
 
 [node name="HighlightLight" type="OmniLight3D" parent="."]
 light_energy = 0.0
-omni_range = 0.15
+omni_range = 0.24

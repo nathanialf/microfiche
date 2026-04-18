@@ -1,10 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://room_scene"]
+[gd_scene load_steps=24 format=3 uid="uid://room_scene"]
 
 [ext_resource type="PackedScene" uid="uid://player_scene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://reader_scene" path="res://scenes/objects/microfiche_reader.tscn" id="2_reader"]
 [ext_resource type="PackedScene" uid="uid://cartridge_scene" path="res://scenes/objects/cartridge.tscn" id="3_cartridge"]
 [ext_resource type="Script" path="res://scripts/room/room.gd" id="4_room"]
 [ext_resource type="Environment" path="res://scenes/room/room_environment.tres" id="5_env"]
+[ext_resource type="PackedScene" uid="uid://cartridge_slot_scene" path="res://scenes/objects/cartridge_slot.tscn" id="6_slot"]
+[ext_resource type="PackedScene" uid="uid://desk_ring_scene" path="res://scenes/objects/desk_ring.tscn" id="7_desk_ring"]
+[ext_resource type="PackedScene" uid="uid://computer_stub_scene" path="res://scenes/objects/computer_stub.tscn" id="8_computer"]
+[ext_resource type="Script" path="res://scripts/objects/face_player.gd" id="9_face_player"]
 
 ; ── Materials ─────────────────────────────────────────────────────────────────
 
@@ -21,21 +25,12 @@ roughness = 0.92
 albedo_color = Color(0.97, 0.97, 0.95, 1)
 roughness = 0.95
 
-[sub_resource type="StandardMaterial3D" id="Mat_desk"]
-albedo_color = Color(0.50, 0.32, 0.16, 1)
-roughness = 0.55
-metallic = 0.02
+[sub_resource type="StandardMaterial3D" id="Mat_holder_shell"]
+albedo_color = Color(0.10, 0.09, 0.08, 1)
+roughness = 0.82
+metallic = 0.08
 
-[sub_resource type="StandardMaterial3D" id="Mat_desk_metal"]
-albedo_color = Color(0.80, 0.80, 0.78, 1)
-roughness = 0.14
-metallic = 0.90
-
-[sub_resource type="StandardMaterial3D" id="Mat_keyboard_prop"]
-albedo_color = Color(0.83, 0.80, 0.72, 1)
-roughness = 0.84
-
-; ── Meshes ─────────────────────────────────────────────────────────────────────
+; ── Architecture meshes ───────────────────────────────────────────────────────
 
 [sub_resource type="BoxMesh" id="Mesh_floor"]
 size = Vector3(5.0, 0.08, 4.5)
@@ -52,23 +47,6 @@ size = Vector3(0.12, 3.2, 4.5)
 [sub_resource type="BoxMesh" id="Mesh_wall_right"]
 size = Vector3(0.12, 3.2, 4.5)
 
-[sub_resource type="BoxMesh" id="Mesh_desk_top"]
-size = Vector3(2.2, 0.06, 0.85)
-
-[sub_resource type="BoxMesh" id="Mesh_desk_leg"]
-size = Vector3(0.06, 0.74, 0.06)
-
-[sub_resource type="BoxMesh" id="Mesh_desk_panel"]
-size = Vector3(2.18, 0.40, 0.04)
-
-[sub_resource type="BoxMesh" id="Mesh_desk_rail"]
-size = Vector3(2.18, 0.04, 0.04)
-
-[sub_resource type="BoxMesh" id="Mesh_keyboard_prop"]
-size = Vector3(0.38, 0.022, 0.14)
-
-; ── Shapes ─────────────────────────────────────────────────────────────────────
-
 [sub_resource type="BoxShape3D" id="Shape_floor"]
 size = Vector3(5.0, 0.08, 4.5)
 
@@ -81,20 +59,22 @@ size = Vector3(0.12, 3.2, 4.5)
 [sub_resource type="BoxShape3D" id="Shape_wall_right"]
 size = Vector3(0.12, 3.2, 4.5)
 
-[sub_resource type="BoxShape3D" id="Shape_desk"]
-size = Vector3(2.2, 0.06, 0.85)
+; ── Tower cart holder meshes ──────────────────────────────────────────────────
+; Shell outer: 520mm (X) × 200mm (Y) × 350mm (Z); open face at -Z (player side).
+; 3 columns × 5 rows = 15 slots. Columns centred at X = -0.165, 0, +0.165.
+; Rows centred at Y = 0.019, 0.056, 0.094, 0.131, 0.168 (37mm step).
 
-[sub_resource type="BoxMesh" id="Mesh_return_top"]
-size = Vector3(0.70, 0.06, 1.0)
+[sub_resource type="BoxMesh" id="Mesh_tower_back"]
+size = Vector3(0.520, 0.200, 0.013)
 
-[sub_resource type="BoxShape3D" id="Shape_return"]
-size = Vector3(0.70, 0.06, 1.0)
+[sub_resource type="BoxMesh" id="Mesh_tower_side"]
+size = Vector3(0.013, 0.200, 0.350)
 
-[sub_resource type="BoxMesh" id="Mesh_return_front_panel"]
-size = Vector3(0.70, 0.40, 0.04)
+[sub_resource type="BoxMesh" id="Mesh_tower_top"]
+size = Vector3(0.520, 0.013, 0.350)
 
-[sub_resource type="BoxMesh" id="Mesh_return_side_panel"]
-size = Vector3(0.04, 0.40, 1.0)
+[sub_resource type="BoxMesh" id="Mesh_tower_divider"]
+size = Vector3(0.008, 0.200, 0.350)
 
 ; ── Scene tree ────────────────────────────────────────────────────────────────
 
@@ -129,7 +109,7 @@ omni_range = 6.0
 omni_attenuation = 1.6
 
 [node name="TerminalGlow" type="OmniLight3D" parent="Lighting"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.10, -1.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.10, -1.25)
 light_color = Color(0.98, 0.72, 0.12, 1)
 light_energy = 0.0
 omni_range = 1.4
@@ -177,105 +157,182 @@ surface_material_override/0 = SubResource("Mat_wall")
 [node name="Shape" type="CollisionShape3D" parent="Architecture/WallRight"]
 shape = SubResource("Shape_wall_right")
 
+; ── Furniture — semicircle desk wrapping the player ──────────────────────────
+; Desk centered on the player (X=0, Z=-0.55). Inner radius 0.58, outer 1.12.
+; Top at Y=0.81. Built as an ArrayMesh by desk_ring.gd at runtime.
+
 [node name="Furniture" type="Node3D" parent="."]
 
-[node name="Desk" type="StaticBody3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78, -1.62)
-[node name="Top" type="MeshInstance3D" parent="Furniture/Desk"]
-mesh = SubResource("Mesh_desk_top")
-surface_material_override/0 = SubResource("Mat_desk")
-[node name="Shape" type="CollisionShape3D" parent="Furniture/Desk"]
-shape = SubResource("Shape_desk")
+[node name="DeskRing" parent="Furniture" instance=ExtResource("7_desk_ring")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, -0.55)
 
-[node name="DeskLegFL" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04, 0.37, -1.24)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="DeskLegFR" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04, 0.37, -1.24)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="DeskLegBL" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04, 0.37, -2.0)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="DeskLegBR" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04, 0.37, -2.0)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="DeskFrontPanel" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -1.22)
-mesh = SubResource("Mesh_desk_panel")
-surface_material_override/0 = SubResource("Mat_desk")
-
-[node name="DeskBackRail" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, -2.0)
-mesh = SubResource("Mesh_desk_rail")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="KeyboardProp" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(0.996, 0, 0.087, 0, 1, 0, -0.087, 0, 0.996, 0.35, 0.832, -1.48)
-mesh = SubResource("Mesh_keyboard_prop")
-surface_material_override/0 = SubResource("Mat_keyboard_prop")
-
-; ── L-Desk return (right side, extends toward player) ─────────────────────────
-; Main desk right edge: X=+1.10, front face: Z=-1.195
-; Return spans X=+1.10 to +1.80, Z=-0.195 to -1.195
-
-[node name="ReturnDesk" type="StaticBody3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 0.78, -0.695)
-[node name="Top" type="MeshInstance3D" parent="Furniture/ReturnDesk"]
-mesh = SubResource("Mesh_return_top")
-surface_material_override/0 = SubResource("Mat_desk")
-[node name="Shape" type="CollisionShape3D" parent="Furniture/ReturnDesk"]
-shape = SubResource("Shape_return")
-
-[node name="ReturnLegFL" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14, 0.37, -0.24)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="ReturnLegFR" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 0.37, -0.24)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="ReturnLegBR" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76, 0.37, -1.15)
-mesh = SubResource("Mesh_desk_leg")
-surface_material_override/0 = SubResource("Mat_desk_metal")
-
-[node name="ReturnFrontPanel" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45, 0.55, -0.177)
-mesh = SubResource("Mesh_return_front_panel")
-surface_material_override/0 = SubResource("Mat_desk")
-
-[node name="ReturnSidePanel" type="MeshInstance3D" parent="Furniture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78, 0.55, -0.695)
-mesh = SubResource("Mesh_return_side_panel")
-surface_material_override/0 = SubResource("Mat_desk")
+; ── Objects on the desk arc ──────────────────────────────────────────────────
+; Arc angle α: 0° = forward, + = player's right, - = player's left.
+; Position at α, radius R: (R*sin(α), Y, -0.55 - R*cos(α)).
+; Yaw to face player (screen/front at +Z local): yaw = -α.
+; Holder yaw (open face at -Z local): yaw = 180° - α.
 
 [node name="Objects" type="Node3D" parent="."]
 
+; Microfiche at α=0°, radial 0.88 → position (0, 1.20, -1.43). Yaw = 0 (identity).
 [node name="MicroficheReader" parent="Objects" instance=ExtResource("2_reader")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.03, -1.78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.20, -1.43)
 
-; Cartridges rest directly on desk surface (Y=0.858 = desk top + cartridge half-height)
-[node name="CartridgeAlpha" parent="Objects" instance=ExtResource("3_cartridge")]
-transform = Transform3D(0.982, 0, 0.188, 0, 1, 0, -0.188, 0, 0.982, 0.22, 0.858, -1.50)
-cartridge_id = "alpha"
+; ── Cartridge tower at α=+45°, radial 0.85 ───────────────────────────────────
+; World position: (0.601, 0.98, -1.151). Yaw = 180° - 45° = 135°.
+; Carts inside use R_x(-90°) so arched top → holder local -Z (open face / player).
+;
+; Holder local frame (before yaw):
+;   X: side-to-side (142mm outer)
+;   Y: up (shell bottom at 0 = desk surface; top of shell at +0.10)
+;   Z: depth — open at -Z (where arched tops stick out toward player)
+;
+; Carts centered at X=0, Z=0 (depth-wise), Y = 0.015 / 0.045 / 0.075 stacked.
 
-[node name="CartridgeBeta" parent="Objects" instance=ExtResource("3_cartridge")]
-transform = Transform3D(0.995, 0, -0.105, 0, 1, 0, 0.105, 0, 0.995, 0.50, 0.858, -1.54)
-cartridge_id = "beta"
+[node name="CartridgeTower" type="Node3D" parent="Objects"]
+; Right arc, pulled closer + swung toward centre so the outer columns stay
+; inside the player's reach. r≈1.00, θ≈40° → (0.643, -0.766).
+; Orientation resolved at runtime by face_player.gd (local -Z at player).
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643, 0.98, -0.766)
+script = ExtResource("9_face_player")
 
-[node name="CartridgeClassified" parent="Objects" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0.02, 0, 1, 0, -0.02, 0, 1, 0.78, 0.858, -1.52)
+[node name="BackWall" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100, 0.175)
+mesh = SubResource("Mesh_tower_back")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+[node name="LeftWall" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.254, 0.100, 0)
+mesh = SubResource("Mesh_tower_side")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+[node name="RightWall" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.254, 0.100, 0)
+mesh = SubResource("Mesh_tower_side")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+[node name="TopWall" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.194, 0)
+mesh = SubResource("Mesh_tower_top")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+; Vertical dividers between columns.
+[node name="DividerLeft" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0825, 0.100, 0)
+mesh = SubResource("Mesh_tower_divider")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+[node name="DividerRight" type="MeshInstance3D" parent="Objects/CartridgeTower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0825, 0.100, 0)
+mesh = SubResource("Mesh_tower_divider")
+surface_material_override/0 = SubResource("Mat_holder_shell")
+
+; 3 columns × 5 rows. R_x(-90°) rotates cart so its arched top lies along tower
+; +Z (into the back). Column X centres: -0.165, 0, +0.165.
+; Row Y centres: 0.019, 0.056, 0.094, 0.131, 0.168.
+
+[node name="CartridgeThreshold" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.168, 0)
+cartridge_id = "threshold"
+
+[node name="CartridgeOmicron" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.168, 0)
+cartridge_id = "omicron"
+
+[node name="CartridgeMox" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.168, 0)
+cartridge_id = "mox"
+
+[node name="CartridgeSable" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.131, 0)
+cartridge_id = "sable"
+
+[node name="CartridgeClassified" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.131, 0)
 cartridge_id = "classified"
+
+[node name="CartridgeVex" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.131, 0)
+cartridge_id = "vex"
+
+[node name="CartridgeCaul" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.094, 0)
+cartridge_id = "caul"
+
+[node name="CartridgeChoir" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.094, 0)
+cartridge_id = "choir"
+
+[node name="CartridgeLitany" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.094, 0)
+cartridge_id = "litany"
+
+[node name="CartridgeExpanse" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.056, 0)
+cartridge_id = "expanse"
+
+[node name="CartridgeKaya" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.056, 0)
+cartridge_id = "kaya"
+
+[node name="CartridgeWatcher" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.056, 0)
+cartridge_id = "watcher"
+
+[node name="CartridgeBlade" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.019, 0)
+cartridge_id = "blade"
+
+[node name="SlotThreshold" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.168, 0)
+
+[node name="SlotOmicron" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.168, 0)
+
+[node name="SlotMox" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.168, 0)
+
+[node name="SlotSable" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.131, 0)
+
+[node name="SlotClassified" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.131, 0)
+
+[node name="SlotVex" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.131, 0)
+
+[node name="SlotCaul" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.094, 0)
+
+[node name="SlotChoir" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.094, 0)
+
+[node name="SlotLitany" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.094, 0)
+
+[node name="SlotExpanse" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.056, 0)
+
+[node name="SlotKaya" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.056, 0)
+
+[node name="SlotWatcher" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.056, 0)
+
+[node name="SlotBlade" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.019, 0)
+
+; ── Stub computer at α=-70°, radial 0.85 ─────────────────────────────────────
+; Position (-0.799, 0.98, -0.841). Screen (local +Z) faces player via face_player.gd.
+
+; Computer stub has Interactable script as its root, so we can't attach face_player
+; as a script. Wrap it in a Node3D that handles aiming.
+[node name="ComputerAnchor" type="Node3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799, 0.98, -0.841)
+script = ExtResource("9_face_player")
+facing_axis = 1
+
+[node name="ComputerStub" parent="Objects/ComputerAnchor" instance=ExtResource("8_computer")]
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -0.55)

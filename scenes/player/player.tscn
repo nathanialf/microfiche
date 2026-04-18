@@ -1,11 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://player_scene"]
+[gd_scene load_steps=8 format=3 uid="uid://player_scene"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://hands_scene" path="res://scenes/player/mechanical_hands.tscn" id="2_hands"]
+[ext_resource type="FontFile" path="res://assets/fonts/JetBrainsMono-Regular.ttf" id="3_font_prompt"]
 
 [sub_resource type="CapsuleShape3D" id="PlayerCollision"]
 radius = 0.25
 height = 1.6
+
+[sub_resource type="StyleBoxFlat" id="PromptPanel"]
+bg_color = Color(0.18, 0.85, 0.38, 0.92)
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="PromptPanelBlocked"]
+bg_color = Color(0.18, 0.85, 0.38, 0.45)
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+
+[sub_resource type="LabelSettings" id="PromptLabelSettings"]
+font = ExtResource("3_font_prompt")
+font_size = 14
+font_color = Color(0.04, 0.14, 0.05, 1)
+outline_size = 0
+shadow_color = Color(0, 0, 0, 0)
+
+[sub_resource type="LabelSettings" id="HeldLabelSettings"]
+font = ExtResource("3_font_prompt")
+font_size = 14
+font_color = Color(0.92, 0.95, 0.88, 0.92)
+outline_size = 2
+outline_color = Color(0, 0, 0, 0.85)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_player")
@@ -20,11 +49,10 @@ fov = 65.0
 near = 0.05
 
 [node name="InteractionRay" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -2.0)
+target_position = Vector3(0, 0, -3.0)
 collision_mask = 2
 
 [node name="Hands" parent="Camera3D" instance=ExtResource("2_hands")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35, -0.3)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -46,16 +74,35 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.6, 0.8, 0.6, 0.8)
 
-[node name="InteractPrompt" type="Label" parent="HUD"]
+[node name="InteractPromptPanel" type="PanelContainer" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = 15.0
-offset_right = 120.0
-offset_bottom = 35.0
-text = ""
+offset_top = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PromptPanelBlocked")
+
+[node name="InteractPrompt" type="Label" parent="HUD/InteractPromptPanel"]
+layout_mode = 2
+text = "— NO TARGET —"
 horizontal_alignment = 1
+vertical_alignment = 1
+label_settings = SubResource("PromptLabelSettings")
+
+[node name="HeldLabel" type="Label" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -34.0
+offset_right = 520.0
+offset_bottom = -12.0
+text = ""
 visible = false
+label_settings = SubResource("HeldLabelSettings")

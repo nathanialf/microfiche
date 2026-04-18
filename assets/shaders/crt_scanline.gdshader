@@ -3,6 +3,11 @@
 
 shader_type canvas_item;
 
+// The scanline overlay is a full-rect ColorRect sitting on top of the UI. To
+// composite its effects over the UI below it, we sample the viewport's rendered
+// output via a screen-texture hint rather than the overlay's own (blank) TEXTURE.
+uniform sampler2D screen_tex : hint_screen_texture, repeat_disable, filter_linear;
+
 uniform float speed : hint_range(0.0, 100.0) = 30.0;
 uniform float intensity : hint_range(0.0, 1.0) = 0.04;
 uniform float line_count : hint_range(50.0, 600.0) = 240.0;
@@ -34,10 +39,10 @@ void fragment() {
 	// Screen flicker
 	float flicker = 1.0 - (sin(TIME * flicker_speed) * 0.5 + 0.5) * flicker_intensity;
 
-	// Sample screen
-	vec4 screen_color = texture(TEXTURE, distorted_uv);
+	// Sample the viewport's rendered UI behind this overlay.
+	vec4 screen_color = texture(screen_tex, distorted_uv);
 
-	// Apply CRT amber tint
+	// Apply CRT tint
 	screen_color.rgb = mix(screen_color.rgb, screen_color.rgb * tint.rgb, 0.3);
 
 	// Apply effects

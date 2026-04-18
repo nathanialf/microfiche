@@ -99,6 +99,6 @@ func _get_timestamp() -> String:
 func queue_close() -> void:
 	if _dirty:
 		_auto_save()
-	var ui := get_tree().get_first_node_in_group("terminal_ui")
+	var ui := get_tree().get_first_node_in_group("microfiche_ui")
 	if ui and ui.has_method("toggle_notepad"):
 		ui.toggle_notepad()

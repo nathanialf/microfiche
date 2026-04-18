@@ -1,0 +1,37 @@
+{
+  "id": "choir",
+  "label": "CHOIR",
+  "handwritten_label": "the choir",
+  "color": "#4A6B5A",
+  "access_level": 1,
+  "documents": [
+    {
+      "id": "greyfield_choir",
+      "title": "THE GREYFIELD CHOIR",
+      "subtitle": "Entity Classification — Class II Swarm — Behavioral Profile",
+      "classification": "RESTRICTED",
+      "page": "016",
+      "tags": ["ENTITY", "SWARM", "ACTIVE THREAT"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "CLASSIFICATION",
+          "body": "The Greyfield Choir is a Class II swarm-type void entity characterized by coordinated collective movement and targeted subsonic emission. 23 documented sightings since Cycle 4418. Maximum observed count: 31 individuals. Standard observed range: 7-31 figures per sighting."
+        },
+        {
+          "heading": "PHYSICAL DESCRIPTION",
+          "body": "Individual figures: featureless grey, approximately 1.9 meters tall. No discernible facial features. No visible joints. Movement is fluid and does not correspond to any recognizable bipedal gait pattern. Individual figures do not appear to interact with each other, yet move in complete synchronization at all times.\n\nThe figures do not cast shadows."
+        },
+        {
+          "heading": "SUBSONIC EMISSION",
+          "body": "The primary threat mechanism is a persistent 14-18 Hz subsonic harmonic produced collectively by the swarm. Effects on human subjects at documented exposure durations:\n\n0-5 MINUTES: Mild unease, described as 'the feeling that someone is standing behind you.'\n5-15 MINUTES: Increasing anxiety, nausea, difficulty maintaining conversational focus.\n15-30 MINUTES: Grey fugue onset. Dissociative state. Subjects lose track of assigned tasks. Subjects lose track of why they are where they are. Subjects become docile.\n30+ MINUTES: Full grey fugue. Subjects stand still. They are not distressed. They report afterward, when recovered, that they were 'just waiting.' For what, they cannot say.\n\nGrey fugue is reversible with removal from proximity. Recovery time: 2-6 hours. No documented permanent cognitive effects.\n\nThat last sentence is accurate as of current data. Current data has a survivor sample of twelve. We will update this assessment as data improves."
+        },
+        {
+          "heading": "BEHAVIORAL PATTERNS",
+          "body": "The Choir is drawn to areas of prior human habitation. They have never been observed in pristine terrain.\n\nWhen the Choir is observed and then the area is vacated, the Choir typically disperses within 4-8 hours, collapsing into ash and reconstituting elsewhere. This has led to debate about whether individual figures are discrete entities or manifestations of a single distributed intelligence.\n\nDuring Operation Glass Litany, the Choir responded to the observation team with what appeared to be directed attention — turning collectively toward the operatives during extraction. As they did, the subsonic frequency dropped from 16.3 Hz to 11.7 Hz. This has not been observed before. It may indicate adaptation. It may indicate communication. We do not know."
+        }
+      ],
+      "keywords": ["Greyfield Choir", "grey fugue", "subsonic", "Class II", "swarm", "Glass Litany", "adaptation", "prior habitation", "featureless", "16.3 Hz"]
+    }
+  ]
+}

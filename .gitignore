@@ -1,0 +1,10 @@
+# Godot 4+ editor cache
+.godot/
+
+# Export artefacts
+export_presets.cfg
+build/
+
+# OS
+.DS_Store
+Thumbs.db

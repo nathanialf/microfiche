@@ -1,29 +1,35 @@
 extends Control
 
-signal back_pressed
-
-const AMBER        := Color(0.96, 0.72, 0.12)
-const AMBER_DIM    := Color(0.58, 0.43, 0.08)
-const AMBER_BRIGHT := Color(1.0,  0.88, 0.30)
-const KEYWORD_NEW  := Color(0.70, 0.95, 0.40)   # green-gold — unseen keyword
-const KEYWORD_SEEN := Color(0.50, 0.78, 0.30)   # muted — already discovered
-const DIVIDER_COL  := Color(0.30, 0.22, 0.05)
+const AMBER        := Color(0.20, 0.95, 0.28)   # phosphor green — main text
+const AMBER_DIM    := Color(0.08, 0.52, 0.14)   # dim green
+const AMBER_BRIGHT := Color(0.65, 1.00, 0.72)   # bright green highlight
+const KEYWORD_NEW  := Color(1.00, 1.00, 0.25)   # yellow — unseen keyword stands out
+const KEYWORD_SEEN := Color(0.55, 1.00, 0.60)   # lighter green — already discovered
+const DIVIDER_COL  := Color(0.08, 0.38, 0.12)   # dark green divider
 
 @onready var header_label: RichTextLabel    = $Layout/Header
 @onready var class_label: Label             = $Layout/ClassificationBar/ClassLabel
 @onready var page_label: Label              = $Layout/ClassificationBar/PageNum
-@onready var content_scroll: ScrollContainer= $Layout/MainArea/ContentScroll
-@onready var content_label: RichTextLabel   = $Layout/MainArea/ContentScroll/Content
-@onready var section_index: VBoxContainer   = $Layout/MainArea/SidePanel/SectionIndex
+@onready var content_label: RichTextLabel   = $Layout/MainArea/Content
+@onready var section_index: VBoxContainer   = $Layout/MainArea/SectionIndex
 @onready var tags_bar: HBoxContainer        = $Layout/TagsBar
-@onready var back_button: Button            = $Layout/FooterBar/BackBtn
 @onready var scroll_hint: Label             = $Layout/FooterBar/ScrollHint
+@onready var ticker: PanelContainer         = $Layout/PlaceholderTicker
+@onready var ticker_bg: ColorRect           = $Layout/PlaceholderTicker/Bg
+@onready var ticker_label: Label            = $Layout/PlaceholderTicker/TickerLabel
+
+const TICKER_SPEED_PX := 55.0  # pixels per second
+const TICKER_SEGMENT  := "▓  PLACEHOLDER — CONTENT NOT FINAL  ▓    "
+const TICKER_REPEATS  := 24  # enough repeats that the wrap point is always far off-screen
 
 var _current_doc: Dictionary = {}
 var _cartridge_id: String = ""
+var _ticker_offset: float = 0.0
+var _ticker_segment_width: float = 0.0
 
 func _ready() -> void:
-	back_button.pressed.connect(func(): back_pressed.emit())
+	ticker.resized.connect(_layout_ticker_bg)
+	ticker_label.resized.connect(_recompute_ticker_segment)
 
 func display_document(cartridge_id: String, doc: Dictionary) -> void:
 	_cartridge_id = cartridge_id
@@ -34,16 +40,24 @@ func display_document(cartridge_id: String, doc: Dictionary) -> void:
 	_render_content(doc)
 	_rebuild_section_index(doc)
 	_render_tags(doc)
+	_render_ticker(doc)
 
-	content_scroll.scroll_vertical = 0
+	_reset_scroll()
 	scroll_hint.text = "↑↓ or wheel to scroll"
+	call_deferred("_debug_log_content_size")
+
+func _debug_log_content_size() -> void:
+	print("[doc_reader] content size: ", content_label.size,
+		" autowrap=", content_label.autowrap_mode,
+		" min_x=", content_label.custom_minimum_size.x)
+
+func _reset_scroll() -> void:
+	var bar := content_label.get_v_scroll_bar()
+	if bar:
+		bar.value = 0
 
 func _render_header(doc: Dictionary) -> void:
 	header_label.clear()
-	if doc.get("placeholder", false):
-		header_label.push_color(Color(1.0, 0.38, 0.08))
-		header_label.append_text("▓  PLACEHOLDER — CONTENT NOT FINAL  ▓\n")
-		header_label.pop()
 	header_label.push_color(AMBER_BRIGHT)
 	header_label.push_bold()
 	header_label.append_text("■  " + doc.get("title", "UNTITLED") + "\n")
@@ -80,16 +94,79 @@ func _render_content(doc: Dictionary) -> void:
 		content_label.pop()
 		content_label.push_color(AMBER)
 
-		# Body — split on keyword boundaries and colorize
-		_append_body_with_keywords(sec.get("body", ""))
+		# Section body: prefer typed blocks if present, otherwise fall back to
+		# the flat body string (legacy).
+		var blocks: Array = sec.get("blocks", [])
+		if not blocks.is_empty():
+			for block: Dictionary in blocks:
+				_render_block(block)
+		else:
+			_append_body_with_keywords(sec.get("body", ""))
+			content_label.append_text("\n")
 
-		content_label.append_text("\n")
 		content_label.pop()
 
 		if i < sections.size() - 1:
 			content_label.push_color(DIVIDER_COL)
 			content_label.append_text("\n────────────────────────────────\n\n")
 			content_label.pop()
+
+func _render_block(block: Dictionary) -> void:
+	match block.get("type", "paragraph"):
+		"paragraph":
+			_append_body_with_keywords(block.get("text", ""))
+			content_label.append_text("\n\n")
+		"table":
+			_render_table_block(block)
+		"list":
+			_render_list_block(block)
+		_:
+			_append_body_with_keywords(str(block.get("text", "")))
+			content_label.append_text("\n\n")
+
+func _render_table_block(block: Dictionary) -> void:
+	var columns: Array = block.get("columns", [])
+	var rows: Array = block.get("rows", [])
+	if columns.is_empty() or rows.is_empty():
+		return
+	var n := columns.size()
+	# Optional per-column expand ratios. Default: all 1 (equal share).
+	var ratios: Array = block.get("column_ratios", [])
+	content_label.append_text("\n")
+	content_label.push_table(n)
+	# Tell the table to share the available width across columns so long cells
+	# wrap inside their column instead of blowing the table past the viewport.
+	for col_idx in n:
+		var ratio: int = int(ratios[col_idx]) if col_idx < ratios.size() else 1
+		content_label.set_table_column_expand(col_idx, true, ratio)
+	# Header row
+	for col in columns:
+		content_label.push_cell()
+		content_label.push_color(AMBER_BRIGHT)
+		content_label.push_bold()
+		content_label.append_text(str(col))
+		content_label.pop()
+		content_label.pop()
+		content_label.pop()
+	# Data rows
+	for row: Array in rows:
+		for col_idx in n:
+			content_label.push_cell()
+			var cell_text: String = str(row[col_idx]) if col_idx < row.size() else ""
+			_append_body_with_keywords(cell_text)
+			content_label.pop()
+	content_label.pop()
+	content_label.append_text("\n")
+
+func _render_list_block(block: Dictionary) -> void:
+	var items: Array = block.get("items", [])
+	var ordered: bool = block.get("ordered", false)
+	for i in items.size():
+		var prefix := "%d. " % (i + 1) if ordered else "•  "
+		content_label.append_text(prefix)
+		_append_body_with_keywords(str(items[i]))
+		content_label.append_text("\n")
+	content_label.append_text("\n")
 
 func _append_body_with_keywords(text: String) -> void:
 	var keyword_map: Dictionary = CartridgeDatabase.get_keyword_data().get("keyword_to_cartridge", {})
@@ -168,20 +245,72 @@ func _render_tags(doc: Dictionary) -> void:
 		lbl.add_theme_color_override("font_color", AMBER_DIM)
 		tags_bar.add_child(lbl)
 
+func _render_ticker(doc: Dictionary) -> void:
+	ticker.visible = doc.get("placeholder", false)
+	if ticker.visible:
+		# Fill the label with many back-to-back copies so the seam at wrap time
+		# is always far off-screen — the player sees one continuous stream.
+		ticker_label.text = TICKER_SEGMENT.repeat(TICKER_REPEATS)
+		_ticker_offset = 0.0
+		_layout_ticker_bg()
+		_recompute_ticker_segment()
+
+func _layout_ticker_bg() -> void:
+	ticker_bg.position = Vector2.ZERO
+	ticker_bg.size = ticker.size
+
+func _recompute_ticker_segment() -> void:
+	# One copy's width. When the offset has scrolled past this we snap back by
+	# the same amount — the next segment is already under the cursor, so the
+	# snap is invisible and the stream appears continuous.
+	_ticker_segment_width = ticker_label.size.x / float(TICKER_REPEATS)
+
+func _process(delta: float) -> void:
+	if not ticker.visible or _ticker_segment_width <= 0.0:
+		return
+	_ticker_offset -= TICKER_SPEED_PX * delta
+	if _ticker_offset <= -_ticker_segment_width:
+		_ticker_offset += _ticker_segment_width
+	ticker_label.position.x = _ticker_offset
+
 func _scroll_to_section(idx: int, total: int) -> void:
 	if total == 0:
 		return
-	var bar := content_scroll.get_v_scroll_bar()
-	content_scroll.scroll_vertical = int(bar.max_value * float(idx) / float(total))
+	var bar := content_label.get_v_scroll_bar()
+	if bar:
+		bar.value = bar.max_value * float(idx) / float(total)
+
+const SCROLL_STEP := 90
 
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return
-	if event.is_action_pressed("scroll_up"):
-		content_scroll.scroll_vertical = maxi(0, content_scroll.scroll_vertical - 90)
-		AudioManager.sound_page_scroll()
+	# Mouse wheel via action map.
+	if event.is_action_pressed("scroll_up", true):
+		_scroll_by(-SCROLL_STEP)
 		get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("scroll_down"):
-		content_scroll.scroll_vertical += 90
-		AudioManager.sound_page_scroll()
+	elif event.is_action_pressed("scroll_down", true):
+		_scroll_by(SCROLL_STEP)
 		get_viewport().set_input_as_handled()
+	# Keyboard: match by physical keycode directly so this works even if the
+	# scroll_up/scroll_down action bindings are out of date.
+	elif event is InputEventKey and event.pressed:
+		match event.physical_keycode:
+			KEY_UP:
+				_scroll_by(-SCROLL_STEP)
+				get_viewport().set_input_as_handled()
+			KEY_DOWN:
+				_scroll_by(SCROLL_STEP)
+				get_viewport().set_input_as_handled()
+			KEY_PAGEUP:
+				_scroll_by(-SCROLL_STEP * 4)
+				get_viewport().set_input_as_handled()
+			KEY_PAGEDOWN:
+				_scroll_by(SCROLL_STEP * 4)
+				get_viewport().set_input_as_handled()
+
+func _scroll_by(delta: int) -> void:
+	var bar := content_label.get_v_scroll_bar()
+	if bar:
+		bar.value = clampf(bar.value + delta, 0.0, bar.max_value)
+	AudioManager.sound_page_scroll()

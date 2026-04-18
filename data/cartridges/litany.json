@@ -1,0 +1,60 @@
+{
+  "id": "litany",
+  "label": "LITANY",
+  "handwritten_label": "glass litany op",
+  "color": "#4A6B5A",
+  "access_level": 1,
+  "documents": [
+    {
+      "id": "glass_litany",
+      "title": "OPERATION GLASS LITANY",
+      "subtitle": "After-Action Report — Cycle 4422.1 — Glass Flats, Grid W1",
+      "classification": "RESTRICTED",
+      "page": "090",
+      "tags": ["OPERATION", "PARTIAL SUCCESS", "KIA"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "MISSION SUMMARY",
+          "body": "Four-operative fireteam deployed to the Glass Flats to observe and document Greyfield Choir behavioral patterns during a confirmed active sighting. Mission objective: behavioral data collection only. No engagement authorized.\n\nResult: PARTIAL SUCCESS. Data collected. One KIA. One MIA with severe cognitive impairment."
+        },
+        {
+          "heading": "PERSONNEL",
+          "blocks": [
+            {
+              "type": "table",
+              "columns": ["OPERATIVE", "STATUS", "DETAIL"],
+              "column_ratios": [2, 1, 5],
+              "rows": [
+                ["LIN DARO", "KIA", "Grey fugue onset at approximately 22 minutes. Fell behind during extraction. The Choir was between her position and the extraction route by the time the team realized she had stopped moving. The Choir did not approach her. She walked toward them."],
+                ["RENN MARSH", "SURVIVED", "Severe cognitive impairment. Currently undergoing recovery. Prognosis: recoverable but timeline uncertain. Marsh has not been able to complete a full sentence since recovery. He has been able to complete the first half of sentences. He stops and waits, as if for someone to finish them for him."],
+                ["— (×2)", "EXTRACTED", "Names withheld at their request. Extracted successfully with full mission data."]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "DATA COLLECTED",
+          "body": "The behavioral data from Glass Litany represents the most comprehensive documentation of Choir behavior yet obtained. Key observations:\n\n1. The Choir is aware of observers at ranges exceeding our previous estimates. They were aware of the team at approximately 200m, before any operative reported perceiving the subsonic emission.\n\n2. The frequency shift during extraction (16.3 Hz to 11.7 Hz) coincided exactly with the Choir turning to observe the operatives directly. This is the first documented evidence that the Choir modifies its behavior in response to specific individuals rather than merely to human presence in general.\n\n3. Operative Daro reported, immediately before grey fugue onset, that the Choir 'smelled like the break room. Like the coffee that no one ever finishes.' This detail is recorded here without interpretation."
+        },
+        {
+          "heading": "RECOMMENDATIONS",
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                "Future Choir observation operations require a minimum of 6 operatives, with dedicated extraction coordination.",
+                "All operatives must carry redundant Spectral Cauls — single-Caul deployments are insufficient given Choir subsonic range.",
+                "Revised extraction protocols: extraction triggers at 10-minute exposure threshold rather than 20.",
+                "Consider whether 'observation only' is an achievable mission objective given apparent Choir awareness and adaptation.",
+                "Reclassify Daro's death as operational, not accidental. She did not fall. She was taken."
+              ]
+            }
+          ]
+        }
+      ],
+      "keywords": ["Glass Litany", "Lin Daro", "Renn Marsh", "grey fugue", "Greyfield Choir", "Glass Flats", "W1", "subsonic", "extraction", "adaptation"]
+    }
+  ]
+}

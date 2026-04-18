@@ -27,8 +27,15 @@ roughness = 0.5
 [node name="Hands" type="Node3D"]
 script = ExtResource("1_hands")
 
+; HandAnchor: camera-local point where a held cartridge sits. Tweened through
+; named stations (rest / extended / near-slot). Cart reparents to this node
+; while held; hands reach to / grip this anchor while gripping a cart.
+[node name="HandAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.15)
+
 [node name="RightHand" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, 0)
+visible = false
 
 [node name="Palm" type="MeshInstance3D" parent="RightHand"]
 mesh = SubResource("HandMesh_right_palm")
@@ -87,6 +94,7 @@ surface_material_override/0 = SubResource("Mat_copper")
 
 [node name="LeftHand" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.12, 0, 0)
+visible = false
 
 [node name="Palm" type="MeshInstance3D" parent="LeftHand"]
 mesh = SubResource("HandMesh_right_palm")

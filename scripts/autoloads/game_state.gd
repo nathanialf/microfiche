@@ -14,11 +14,21 @@ var available_cartridges: Array = []
 var notes_content: String = ""
 var current_cycle: int = 1
 var read_documents: Array = []
+var classified_insert_count: int = 0
 
 func _ready() -> void:
 	load_game()
-	if available_cartridges.is_empty():
+	if available_cartridges.is_empty() or _save_has_unknown_cartridges():
 		_init_new_game()
+
+func _save_has_unknown_cartridges() -> bool:
+	# Guard against ID schema changes (e.g. cartridge split): if the save holds
+	# IDs the current database doesn't know about, the game can't use them.
+	var known := CartridgeDatabase.get_all_cartridge_ids()
+	for cid in available_cartridges:
+		if cid not in known:
+			return true
+	return false
 
 func _init_new_game() -> void:
 	var keyword_data := CartridgeDatabase.get_keyword_data()
@@ -28,7 +38,13 @@ func _init_new_game() -> void:
 	notes_content = ""
 	current_cycle = 1
 	read_documents = []
+	classified_insert_count = 0
 	save_game()
+
+func increment_classified_inserts() -> int:
+	classified_insert_count += 1
+	save_game()
+	return classified_insert_count
 
 func discover_keyword(keyword: String) -> void:
 	if keyword in discovered_keywords:
@@ -72,6 +88,7 @@ func save_game() -> void:
 		"notes_content": notes_content,
 		"current_cycle": current_cycle,
 		"read_documents": read_documents,
+		"classified_insert_count": classified_insert_count,
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
@@ -96,6 +113,7 @@ func load_game() -> void:
 	notes_content = data.get("notes_content", "")
 	current_cycle = data.get("current_cycle", 1)
 	read_documents = data.get("read_documents", [])
+	classified_insert_count = data.get("classified_insert_count", 0)
 
 func reset_game() -> void:
 	if FileAccess.file_exists(SAVE_PATH):

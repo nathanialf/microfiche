@@ -1,0 +1,67 @@
+{
+  "id": "sable",
+  "label": "SABLE",
+  "handwritten_label": "threshold op",
+  "color": "#556B8B",
+  "access_level": 0,
+  "documents": [
+    {
+      "id": "sable_threshold",
+      "title": "OPERATION SABLE THRESHOLD",
+      "subtitle": "After-Action Report — Cycle 4417.3 — Relay Station Omicron-7",
+      "classification": "OMEGA LEVEL",
+      "page": "085",
+      "tags": ["OPERATION", "FAILURE", "PALLID WATCHER"],
+      "placeholder": true,
+      "sections": [
+        {
+          "heading": "MISSION SUMMARY",
+          "body": "Six-operative fireteam deployed to Relay Station Omicron-7 for dual objectives: structural survey of accessible sections and recovery of Sector 9 proprietary data from the primary archive vault.\n\nResult: TOTAL MISSION FAILURE."
+        },
+        {
+          "heading": "PERSONNEL",
+          "blocks": [
+            {
+              "type": "table",
+              "columns": ["OPERATIVE", "STATUS", "DETAIL"],
+              "column_ratios": [2, 1, 5],
+              "rows": [
+                ["HASK", "KIA", "Cellular dehydration, instantaneous. Watcher contact."],
+                ["SOLARI", "KIA", "Cellular dehydration, instantaneous. Watcher contact."],
+                ["BRUNT", "KIA", "Cellular dehydration, instantaneous. Watcher contact."],
+                ["LIRA DANE", "MIA", "Last seen: Sector 3, data vault access corridor. Not recovered."],
+                ["ARIA VEX", "MIA", "Last seen: Sector 3, alongside Dane. Not recovered."],
+                ["YAEL MOX", "SURVIVED", "Recovered exterior hull. See separate file."]
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "SIGNIFICANT FINDINGS",
+          "body": "1. THE WATCHER IS MAINTAINING THE STATION. Despite confirmed reactor failure at the time of the Omicron Collapse, the station's internal atmosphere, temperature, and partial lighting remain operational. The Watcher appears to be sustaining these systems. For what purpose is unknown.\n\n2. THE HOLLOW BLADE WAS ADAPTED. Operative Hask attempted to use the Hollow Blade against the Watcher in Sector 2. Instead of the expected resonance effect, the Blade's frequency was inverted in real time and reflected back at the operative team. Hask, Solari, and Brunt were dehydrated at the cellular level within seconds. The Blade was dropped and last detected in Sector 3, data vault.\n\n3. THE SHUTTLE HAD COORDINATES. When Mox reached the extraction shuttle, its navigational system was already engaged with a set of coordinates no member of the team had programmed. She flew the shuttle back to base. The pre-programmed coordinates corresponded to a location approximately 400km south of Omicron-7 — in the center of the Wasting Expanse. No structure is documented at that location.\n\n4. MOX HEARD DANE. Mox reports that as she was retreating through Sector 2, she heard Operative Dane's voice from within the Watcher's proximity, speaking in an unfamiliar language. Mox describes it as 'words that hadn't been invented yet.' This is classified Unreliable Testimony. It is retained here for completeness."
+        },
+        {
+          "heading": "RECOMMENDATIONS",
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                "Reclassify the Pallid Watcher from ACTIVE-CONTAINED to ACTIVE-HOSTILE-SOVEREIGN.",
+                "Establish a 200km quarantine perimeter around Omicron-7.",
+                "Suspend all Wasting Expanse operations pending comprehensive threat reassessment.",
+                "Investigate pre-programmed shuttle coordinates. Discretely.",
+                "Recover the Hollow Blade if operationally feasible. Priority: MAXIMUM."
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Recommendations 1-3 have been implemented.\nRecommendations 4-5 are pending resource availability."
+            }
+          ]
+        }
+      ],
+      "keywords": ["Sable Threshold", "Aria Vex", "Lira Dane", "Hollow Blade", "Pallid Watcher", "Wasting Expanse", "Hask", "Solari", "Brunt", "Mox", "shuttle coordinates", "cellular dehydration"]
+    }
+  ]
+}

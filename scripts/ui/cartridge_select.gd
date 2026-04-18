@@ -73,7 +73,7 @@ func _add_cartridge_entry(cartridge_id: String) -> void:
 	grid.add_child(panel)
 
 func _on_cancel() -> void:
-	var ui := get_tree().get_first_node_in_group("terminal_ui")
+	var ui := get_tree().get_first_node_in_group("microfiche_ui")
 	if ui:
 		ui.show_idle_screen()
 		ui.close_and_return()

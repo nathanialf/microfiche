@@ -17,6 +17,22 @@ offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
 
+; Flush-top marquee: visible when the current doc is marked placeholder=true.
+; Bright red band with a horizontally scrolling warning.
+[node name="PlaceholderTicker" type="PanelContainer" parent="Layout"]
+visible = false
+custom_minimum_size = Vector2(0, 22)
+clip_contents = true
+
+[node name="Bg" type="ColorRect" parent="Layout/PlaceholderTicker"]
+color = Color(0.88, 0.06, 0.08, 1)
+mouse_filter = 2
+
+[node name="TickerLabel" type="Label" parent="Layout/PlaceholderTicker"]
+text = "▓  PLACEHOLDER — CONTENT NOT FINAL  ▓    "
+vertical_alignment = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
 [node name="ClassificationBar" type="HBoxContainer" parent="Layout"]
 custom_minimum_size = Vector2(0, 22)
 
@@ -42,36 +58,29 @@ scroll_active = false
 [node name="TagsBar" type="HBoxContainer" parent="Layout"]
 custom_minimum_size = Vector2(0, 18)
 
-[node name="MainArea" type="HBoxContainer" parent="Layout"]
+[node name="MainArea" type="MarginContainer" parent="Layout"]
 size_flags_vertical = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_right = 6
 
-[node name="ContentScroll" type="ScrollContainer" parent="Layout/MainArea"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Content" type="RichTextLabel" parent="Layout/MainArea/ContentScroll"]
+[node name="Content" type="RichTextLabel" parent="Layout/MainArea"]
 bbcode_enabled = true
-size_flags_horizontal = 3
-size_flags_vertical = 3
+clip_contents = true
 fit_content = false
-scroll_active = false
+scroll_active = true
+scroll_following = false
+autowrap_mode = 3
 
-[node name="SidePanel" type="VBoxContainer" parent="Layout/MainArea"]
-custom_minimum_size = Vector2(120, 0)
-
-[node name="SidePanelHeader" type="Label" parent="Layout/MainArea/SidePanel"]
-text = "SECTIONS"
-
-[node name="SectionIndex" type="VBoxContainer" parent="Layout/MainArea/SidePanel"]
-size_flags_vertical = 3
+[node name="SectionIndex" type="VBoxContainer" parent="Layout/MainArea"]
+visible = false
 
 [node name="HSep3" type="HSeparator" parent="Layout"]
 
 [node name="FooterBar" type="HBoxContainer" parent="Layout"]
 custom_minimum_size = Vector2(0, 24)
 
-[node name="BackBtn" type="Button" parent="Layout/FooterBar"]
-text = "◂ BACK [ESC]"
+[node name="ExitHint" type="Label" parent="Layout/FooterBar"]
+text = "[E] EXIT"
 
 [node name="FooterSpacer" type="Control" parent="Layout/FooterBar"]
 size_flags_horizontal = 3

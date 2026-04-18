@@ -1,35 +1,10 @@
 {
-  "id": "epsilon",
-  "label": "EPSILON",
-  "handwritten_label": "expanse / kaya / field notes",
+  "id": "kaya",
+  "label": "KAYA",
+  "handwritten_label": "outpost kaya",
   "color": "#7A6040",
   "access_level": 1,
-  "unlock_keywords": ["Wasting Expanse", "Outpost Kaya", "Kaya", "XR-881", "Glass Flats", "W5"],
   "documents": [
-    {
-      "id": "wasting_expanse",
-      "title": "THE WASTING EXPANSE",
-      "subtitle": "Survey Document — Planetoid XR-881, Northern Hemisphere — Grid Reference W-Series",
-      "classification": "INTERNAL USE ONLY",
-      "page": "058",
-      "tags": ["LOCATION", "SURVEY", "ACTIVE OPERATIONS ZONE"],
-      "placeholder": true,
-      "sections": [
-        {
-          "heading": "OVERVIEW",
-          "body": "The Wasting Expanse designates a 400km survey zone in the northern hemisphere of Planetoid XR-881, which serves as the primary theater of Sector 9 operations. Terrain: low-gravity silicate desert with frozen methane deposits. Gravity: 0.3g standard. Atmosphere: negligible. Temperature: variable by cycle, range -140°C to +20°C.\n\nIMPORTANT: The terrain shifts. Maps older than one operational cycle should be considered unreliable. Survey teams have documented measurable changes in ground topology between consecutive surveys. The cause is unknown. This is noted in all operational briefings. Operatives continue to rely on outdated maps."
-        },
-        {
-          "heading": "POINTS OF INTEREST",
-          "body": "W1 — GLASS FLATS: A fused silicate plain approximately 40km across. Exceptionally smooth. Sound does not behave normally here — echoes arrive before the original sound, or not at all. Greyfield Choir sightings: 7 in the last 2 cycles.\n\nW2 — RELAY STATION OMICRON-7: The submerged derelict. 1.2km depth. Approximately 40% accessible. Do not go here without authorization, a full team, and more Spectral Cauls than you think you need. See separate report.\n\nW3 — THE PROCESSIONAL: A series of linear structures, monolithic, roughly 8-12 meters tall, arranged in a 2km corridor. No known origin. No documentation predates Cycle 4400. No void signatures detected. No threat assessment currently available because no one has been willing to go close enough to conduct one. This is not classified — it simply has not been prioritized.\n\nW4 — SINKFIELD ALPHA: A gravitational anomaly approximately 800m in diameter. Equipment failure rate within 100m of the perimeter: 80%. We do not know what is at the center. We have sent two survey drones. Both stopped transmitting as they crossed the perimeter. Their footage, up to the point of signal loss, showed nothing unusual.\n\nW5 — OUTPOST KAYA: The former forward operating base. Evacuated Cycle 4413. See separate file.\n\nW6 — THE WOUND: A planetary fissure approximately 200m wide and depth unknown. Void-matter emissions are consistently detected. Restricted. If you find yourself near the Wound without authorization, something has gone wrong."
-        },
-        {
-          "heading": "OPERATIONAL NOTES",
-          "body": "Sector 9 maintains a rotating presence in the Expanse. Standard rotation: 6-week cycles. Standard team size: 4-6 operatives. Standard morale: declining.\n\nOperatives frequently request transfer out of Expanse assignment after their first rotation. Most are approved after their third request. The backlog for Expanse reassignment has grown from 7 to 23 requests in the past cycle. Command has noted this trend. They have attributed it to 'cultural factors in the current cohort' and have initiated a wellness initiative."
-        }
-      ],
-      "keywords": ["Wasting Expanse", "XR-881", "Glass Flats", "Omicron-7", "Processional", "Sinkfield Alpha", "Outpost Kaya", "The Wound", "void-matter", "survey", "wellness initiative"]
-    },
     {
       "id": "outpost_kaya",
       "title": "OUTPOST KAYA",
