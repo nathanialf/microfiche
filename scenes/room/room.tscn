@@ -193,7 +193,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.20, -1.43)
 ; Right arc, pulled closer + swung toward centre so the outer columns stay
 ; inside the player's reach. r≈1.00, θ≈40° → (0.643, -0.766).
 ; Orientation resolved at runtime by face_player.gd (local -Z at player).
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643, 0.98, -0.766)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643, 1.02, -0.766)
 script = ExtResource("9_face_player")
 
 [node name="BackWall" type="MeshInstance3D" parent="Objects/CartridgeTower"]

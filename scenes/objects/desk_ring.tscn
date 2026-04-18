@@ -19,6 +19,10 @@ fascia_material = SubResource("Mat_fascia")
 
 [node name="TopMesh" type="MeshInstance3D" parent="."]
 
+[node name="BottomMesh" type="MeshInstance3D" parent="."]
+
+[node name="InnerRimMesh" type="MeshInstance3D" parent="."]
+
 [node name="FasciaMesh" type="MeshInstance3D" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

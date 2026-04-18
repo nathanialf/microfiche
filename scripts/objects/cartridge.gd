@@ -31,6 +31,12 @@ func _ready() -> void:
 	_apply_appearance()
 	add_to_group("cartridges")
 	call_deferred("_register_with_slot")
+	GameState.document_read.connect(_on_state_changed)
+	GameState.cartridge_touched.connect(_on_state_changed)
+
+func _on_state_changed(_id: String) -> void:
+	# A doc was read or any cart was touched somewhere — cheap to refresh.
+	_apply_appearance()
 
 func _register_with_slot() -> void:
 	var slots := get_tree().get_nodes_in_group("cartridge_slots")
@@ -51,13 +57,25 @@ func _register_with_slot() -> void:
 func _apply_appearance() -> void:
 	if cartridge_id.is_empty():
 		return
-	highlight_light.light_color = CartridgeDatabase.get_cartridge_color(cartridge_id)
+	# Once a cart has been touched (picked up) or used (doc read), drop the
+	# colour tint back to a neutral grey. Untouched carts are the ones that pop.
+	var spent := _is_spent()
+	var base := Color(0.55, 0.55, 0.55) if spent else CartridgeDatabase.get_cartridge_color(cartridge_id)
+	highlight_light.light_color = base
 	var label := cartridge_mesh.get_node_or_null("LabelPanel") as MeshInstance3D
 	if label:
 		var mat := StandardMaterial3D.new()
-		mat.albedo_color = CartridgeDatabase.get_cartridge_color(cartridge_id).lerp(Color(0.92, 0.88, 0.78), 0.55)
+		mat.albedo_color = base.lerp(Color(0.92, 0.88, 0.78), 0.55)
 		mat.roughness = 0.96
 		label.set_surface_override_material(0, mat)
+
+func _is_spent() -> bool:
+	if cartridge_id in GameState.touched_cartridges:
+		return true
+	for doc in CartridgeDatabase.get_documents(cartridge_id):
+		if doc.get("id", "") in GameState.read_documents:
+			return true
+	return false
 
 func get_interact_prompt(_player: Node = null) -> String:
 	if _state != CartState.IDLE:
@@ -87,6 +105,8 @@ func attach_to_anchor(anchor: Node3D, player: Node) -> void:
 	visible = true
 	_reparent_preserving_global(anchor)
 	transform = HELD_LOCAL_TRANSFORM
+	# First time the player handles this cart — mark it spent (drops colour).
+	GameState.mark_cartridge_touched(cartridge_id)
 
 func place_in_reader() -> void:
 	# Cart stays visible with its spine poking out of the reader's slot. Reparent

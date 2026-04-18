@@ -18,13 +18,18 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 ; Flush-top marquee: visible when the current doc is marked placeholder=true.
-; Bright red band with a horizontally scrolling warning.
-[node name="PlaceholderTicker" type="PanelContainer" parent="Layout"]
+; Bright red band with a horizontally scrolling warning. Root is a plain Control
+; (not a Container) so the oversized TickerLabel doesn't propagate its ~6000 px
+; min-width up through the VBoxContainer and blow out the whole layout.
+[node name="PlaceholderTicker" type="Control" parent="Layout"]
 visible = false
 custom_minimum_size = Vector2(0, 22)
 clip_contents = true
 
 [node name="Bg" type="ColorRect" parent="Layout/PlaceholderTicker"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color(0.88, 0.06, 0.08, 1)
 mouse_filter = 2
 
@@ -33,35 +38,48 @@ text = "▓  PLACEHOLDER — CONTENT NOT FINAL  ▓    "
 vertical_alignment = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 
-[node name="ClassificationBar" type="HBoxContainer" parent="Layout"]
+[node name="ClassificationMargin" type="MarginContainer" parent="Layout"]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="ClassificationBar" type="HBoxContainer" parent="Layout/ClassificationMargin"]
 custom_minimum_size = Vector2(0, 22)
 
-[node name="ClassLabel" type="Label" parent="Layout/ClassificationBar"]
+[node name="ClassLabel" type="Label" parent="Layout/ClassificationMargin/ClassificationBar"]
 size_flags_horizontal = 3
 text = "◈ CLASSIFICATION ◈"
 horizontal_alignment = 1
 
-[node name="PageNum" type="Label" parent="Layout/ClassificationBar"]
+[node name="PageNum" type="Label" parent="Layout/ClassificationMargin/ClassificationBar"]
 text = "PAGE ---"
 horizontal_alignment = 2
 
 [node name="HSep1" type="HSeparator" parent="Layout"]
 
-[node name="Header" type="RichTextLabel" parent="Layout"]
+[node name="HeaderMargin" type="MarginContainer" parent="Layout"]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="Header" type="RichTextLabel" parent="Layout/HeaderMargin"]
 bbcode_enabled = true
 custom_minimum_size = Vector2(0, 60)
 fit_content = true
 scroll_active = false
+autowrap_mode = 3
 
 [node name="HSep2" type="HSeparator" parent="Layout"]
 
-[node name="TagsBar" type="HBoxContainer" parent="Layout"]
+[node name="TagsMargin" type="MarginContainer" parent="Layout"]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="TagsBar" type="HBoxContainer" parent="Layout/TagsMargin"]
 custom_minimum_size = Vector2(0, 18)
 
 [node name="MainArea" type="MarginContainer" parent="Layout"]
 size_flags_vertical = 3
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_right = 6
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
 
 [node name="Content" type="RichTextLabel" parent="Layout/MainArea"]
 bbcode_enabled = true
@@ -71,20 +89,40 @@ scroll_active = true
 scroll_following = false
 autowrap_mode = 3
 
-[node name="SectionIndex" type="VBoxContainer" parent="Layout/MainArea"]
-visible = false
-
 [node name="HSep3" type="HSeparator" parent="Layout"]
 
-[node name="FooterBar" type="HBoxContainer" parent="Layout"]
+[node name="FooterMargin" type="MarginContainer" parent="Layout"]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="FooterBar" type="HBoxContainer" parent="Layout/FooterMargin"]
 custom_minimum_size = Vector2(0, 24)
 
-[node name="ExitHint" type="Label" parent="Layout/FooterBar"]
+[node name="ExitHint" type="Label" parent="Layout/FooterMargin/FooterBar"]
 text = "[E] EXIT"
 
-[node name="FooterSpacer" type="Control" parent="Layout/FooterBar"]
+[node name="FooterSpacer" type="Control" parent="Layout/FooterMargin/FooterBar"]
 size_flags_horizontal = 3
 
-[node name="ScrollHint" type="Label" parent="Layout/FooterBar"]
+[node name="ScrollHint" type="Label" parent="Layout/FooterMargin/FooterBar"]
 text = "Scroll: ↑↓ / Mouse Wheel"
 horizontal_alignment = 2
+
+; Flush-bottom marquee: mirrors the top ticker so the red bands frame the doc.
+; Root is a Control (see PlaceholderTicker for rationale).
+[node name="PlaceholderTickerBottom" type="Control" parent="Layout"]
+visible = false
+custom_minimum_size = Vector2(0, 22)
+clip_contents = true
+
+[node name="Bg" type="ColorRect" parent="Layout/PlaceholderTickerBottom"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.88, 0.06, 0.08, 1)
+mouse_filter = 2
+
+[node name="TickerLabel" type="Label" parent="Layout/PlaceholderTickerBottom"]
+text = "▓  PLACEHOLDER — CONTENT NOT FINAL  ▓    "
+vertical_alignment = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
