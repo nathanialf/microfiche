@@ -30,9 +30,16 @@ func _ready() -> void:
 	_original_rotation = rotation_degrees
 	_apply_appearance()
 	add_to_group("cartridges")
-	call_deferred("_register_with_slot")
 	GameState.document_read.connect(_on_state_changed)
 	GameState.cartridge_touched.connect(_on_state_changed)
+	# Non-starting carts are scene-placed for editor layout but stay hidden at
+	# runtime — they enter play via the dispensing flow (not via unlock). Skip
+	# slot registration too so the slot reads as empty for the dispenser.
+	if GameState.has_cartridge(cartridge_id):
+		call_deferred("_register_with_slot")
+	else:
+		visible = false
+		cartridge_collider.collision_layer = LAYER_HIDDEN
 
 func _on_state_changed(_id: String) -> void:
 	# A doc was read or any cart was touched somewhere — cheap to refresh.
@@ -68,6 +75,18 @@ func _apply_appearance() -> void:
 		mat.albedo_color = base.lerp(Color(0.92, 0.88, 0.78), 0.55)
 		mat.roughness = 0.96
 		label.set_surface_override_material(0, mat)
+	# Access-denied carts get their full body tinted so they read as a distinct
+	# object on the shelf — the "red card" that never opens.
+	if CartridgeDatabase.is_access_denied(cartridge_id):
+		var body_mat := StandardMaterial3D.new()
+		body_mat.albedo_color = CartridgeDatabase.get_cartridge_color(cartridge_id)
+		body_mat.roughness = 0.82
+		body_mat.metallic = 0.04
+		cartridge_mesh.set_surface_override_material(0, body_mat)
+		for child_name in ["ShoulderLeft", "ShoulderRight", "ArchCap", "ArchCrown"]:
+			var m := cartridge_mesh.get_node_or_null(child_name) as MeshInstance3D
+			if m:
+				m.set_surface_override_material(0, body_mat)
 
 func _is_spent() -> bool:
 	if cartridge_id in GameState.touched_cartridges:
@@ -77,13 +96,12 @@ func _is_spent() -> bool:
 			return true
 	return false
 
-func get_interact_prompt(_player: Node = null) -> String:
+func get_interact_prompt(player: Node = null) -> String:
 	if _state != CartState.IDLE:
 		return ""
-	var written := CartridgeDatabase.get_handwritten_label(cartridge_id)
-	if written.is_empty():
-		return "[E] Pick up — " + CartridgeDatabase.get_cartridge_label(cartridge_id)
-	return "[E] Pick up — \"%s\"" % written
+	if player and player.has_held_cartridge():
+		return ""
+	return "[E] Pick up — " + CartridgeDatabase.get_cartridge_full_name(cartridge_id)
 
 func interact(player: Node) -> bool:
 	if _state != CartState.IDLE or player.has_held_cartridge():

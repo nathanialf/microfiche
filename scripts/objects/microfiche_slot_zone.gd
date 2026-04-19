@@ -12,9 +12,9 @@ func get_interact_prompt(player: Node) -> String:
 	if loaded.is_empty():
 		if player and player.has_held_cartridge():
 			var held: Cartridge = player.get_held_cartridge()
-			return "[E] Insert — " + CartridgeDatabase.get_cartridge_label(held.cartridge_id)
+			return "[E] Insert — " + CartridgeDatabase.get_cartridge_full_name(held.cartridge_id)
 		return ""
-	return "[E] Eject — " + CartridgeDatabase.get_cartridge_label(loaded)
+	return "[E] Eject — " + CartridgeDatabase.get_cartridge_full_name(loaded)
 
 func interact(player: Node) -> bool:
 	if reader == null:

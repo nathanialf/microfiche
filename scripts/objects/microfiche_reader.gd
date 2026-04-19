@@ -16,6 +16,13 @@ signal cartridge_ejected(cartridge_id: String)
 
 var _current_cartridge_id: String = ""
 var _ui: Control = null
+var _viewing_me: bool = false
+
+func notify_view_entered() -> void:
+	_viewing_me = true
+
+func notify_view_exited() -> void:
+	_viewing_me = false
 
 func _ready() -> void:
 	add_to_group("microfiche_reader")
@@ -68,6 +75,11 @@ func insert_cartridge(cartridge_id: String) -> void:
 
 	await get_tree().create_timer(0.3).timeout
 
+	# The cart may have been ejected (or replaced) during the boot delay — bail
+	# out so we don't overwrite an idle/different-cart screen with stale data.
+	if _current_cartridge_id != cartridge_id:
+		return
+
 	var ui := _get_ui()
 	print("[microfiche_reader] insert after delay; ui=", ui, " access_denied=", CartridgeDatabase.is_access_denied(cartridge_id))
 	if ui == null:
@@ -108,6 +120,8 @@ func get_loaded_cartridge() -> String:
 	return _current_cartridge_id
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Terminal UI lives inside a SubViewport and won't receive input otherwise
-	if screen_viewport:
+	# Only forward events to the reader's SubViewport while the player is
+	# actually viewing this reader. Previously unconditional, which sank every
+	# keystroke globally and interfered with the left terminal's LineEdit.
+	if _viewing_me and screen_viewport:
 		screen_viewport.push_input(event)

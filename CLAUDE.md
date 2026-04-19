@@ -14,8 +14,8 @@
 
 ## Cartridge Progression
 One document per cartridge. Cart IDs use the doc's short name (threshold, mox, etc.).
-- **Start with:** THRESHOLD, OMICRON, MOX, SABLE, CLASSIFIED-7
-- **Unlock via keywords:** VEX, CAUL, CHOIR, LITANY, EXPANSE, KAYA, WATCHER, BLADE
+- **Start with:** SABLE, CLASSIFIED-7 (red access-denied)
+- **Unlock via keywords:** THRESHOLD, OMICRON, MOX, VEX, CAUL, CHOIR, LITANY, EXPANSE, KAYA, WATCHER, BLADE
 
 ## Content Allegory
 The sci-fi setting maps to Amazon workplace experience:
@@ -40,7 +40,7 @@ The sci-fi setting maps to Amazon workplace experience:
 - Godot 4.6, GL Compatibility renderer
 - JSON data files for all cartridge content (data/cartridges/*.json)
 - Keywords mapped in data/keywords.json
-- Save file: user://microfiche_save.json
+- No save persistence yet — state is in-memory only (dev phase)
 
 ## Controls
 - Mouse look (constrained — player is seated)

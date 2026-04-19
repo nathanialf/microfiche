@@ -72,7 +72,7 @@ func _process(_delta: float) -> void:
 
 func _update_held_label() -> void:
 	if _held_cartridge != null and _state == PlayerState.FREE_LOOK:
-		var label := CartridgeDatabase.get_cartridge_label(_held_cartridge.cartridge_id)
+		var label := CartridgeDatabase.get_cartridge_full_name(_held_cartridge.cartridge_id)
 		held_label.text = "HOLDING: " + label + "  —  [E] on slot to insert / place"
 		held_label.visible = true
 	else:
@@ -101,8 +101,13 @@ func _set_prompt_blocked() -> void:
 	crosshair.modulate = Color(0.55, 0.75, 0.55, 0.75)
 
 func _set_interactable(i: Interactable) -> void:
-	if i != _current_interactable:
-		_current_interactable = i
+	if i == _current_interactable:
+		return
+	if _current_interactable and _current_interactable.has_method("set_ghost_visible"):
+		_current_interactable.set_ghost_visible(false)
+	_current_interactable = i
+	if i and i.has_method("set_ghost_visible"):
+		i.set_ghost_visible(_held_cartridge != null)
 
 func _find_interactable(node: Node) -> Interactable:
 	var n := node
@@ -116,8 +121,13 @@ func _find_interactable(node: Node) -> Interactable:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _state == PlayerState.VIEWING:
-		# Only the E keypress exits read mode. Click and ESC are intentionally
-		# inert so scrolling / clicking in the doc doesn't pop the player out.
+		# Targets that own an input field (e.g. the keyword terminal) opt out so
+		# typing E doesn't kick the player out of view mode.
+		if _view_target and _view_target.has_method("consumes_view_input") \
+				and _view_target.consumes_view_input():
+			return
+		# Default: E exits. Click and ESC are inert so scrolling / clicking in
+		# the doc doesn't pop the player out.
 		if event is InputEventKey and event.pressed and not event.echo \
 				and event.physical_keycode == KEY_E:
 			exit_view_mode()

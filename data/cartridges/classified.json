@@ -2,7 +2,7 @@
   "id": "classified",
   "label": "CLASSIFIED-7",
   "handwritten_label": "???",
-  "color": "#1A1A1A",
+  "color": "#B83A3A",
   "access_level": 99,
   "unlock_keywords": [],
   "access_denied": true,

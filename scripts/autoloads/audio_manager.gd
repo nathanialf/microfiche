@@ -90,3 +90,27 @@ func sound_notepad_open() -> void:
 func sound_typewriter_key() -> void:
 	# Single key strike
 	pass
+
+func sound_query_accepted() -> void:
+	# Satisfying key-thunk + confirmation chirp
+	pass
+
+func sound_query_invalid() -> void:
+	# Short error buzz
+	pass
+
+func sound_query_rejected() -> void:
+	# Muted "nope" tone — record already released
+	pass
+
+func sound_hatch_open() -> void:
+	# Mechanical servo whir + latch click
+	pass
+
+func sound_hatch_close() -> void:
+	# Reverse servo + soft clunk
+	pass
+
+func sound_cart_pop() -> void:
+	# Cassette-eject spring
+	pass

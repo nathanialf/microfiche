@@ -18,8 +18,8 @@ config/icon="res://assets/textures/icon.png"
 
 [autoload]
 
-GameState="*res://scripts/autoloads/game_state.gd"
 CartridgeDatabase="*res://scripts/autoloads/cartridge_database.gd"
+GameState="*res://scripts/autoloads/game_state.gd"
 KeywordRegistry="*res://scripts/autoloads/keyword_registry.gd"
 AudioManager="*res://scripts/autoloads/audio_manager.gd"
 

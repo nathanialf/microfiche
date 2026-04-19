@@ -7,7 +7,7 @@
 [ext_resource type="Environment" path="res://scenes/room/room_environment.tres" id="5_env"]
 [ext_resource type="PackedScene" uid="uid://cartridge_slot_scene" path="res://scenes/objects/cartridge_slot.tscn" id="6_slot"]
 [ext_resource type="PackedScene" uid="uid://desk_ring_scene" path="res://scenes/objects/desk_ring.tscn" id="7_desk_ring"]
-[ext_resource type="PackedScene" uid="uid://computer_stub_scene" path="res://scenes/objects/computer_stub.tscn" id="8_computer"]
+[ext_resource type="PackedScene" uid="uid://left_terminal_scene" path="res://scenes/objects/left_terminal.tscn" id="8_computer"]
 [ext_resource type="Script" path="res://scripts/objects/face_player.gd" id="9_face_player"]
 
 ; ── Materials ─────────────────────────────────────────────────────────────────
@@ -231,18 +231,6 @@ surface_material_override/0 = SubResource("Mat_holder_shell")
 ; +Z (into the back). Column X centres: -0.165, 0, +0.165.
 ; Row Y centres: 0.019, 0.056, 0.094, 0.131, 0.168.
 
-[node name="CartridgeThreshold" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.168, 0)
-cartridge_id = "threshold"
-
-[node name="CartridgeOmicron" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.168, 0)
-cartridge_id = "omicron"
-
-[node name="CartridgeMox" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.168, 0)
-cartridge_id = "mox"
-
 [node name="CartridgeSable" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.131, 0)
 cartridge_id = "sable"
@@ -250,38 +238,6 @@ cartridge_id = "sable"
 [node name="CartridgeClassified" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.131, 0)
 cartridge_id = "classified"
-
-[node name="CartridgeVex" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.131, 0)
-cartridge_id = "vex"
-
-[node name="CartridgeCaul" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.094, 0)
-cartridge_id = "caul"
-
-[node name="CartridgeChoir" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.094, 0)
-cartridge_id = "choir"
-
-[node name="CartridgeLitany" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.094, 0)
-cartridge_id = "litany"
-
-[node name="CartridgeExpanse" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.056, 0)
-cartridge_id = "expanse"
-
-[node name="CartridgeKaya" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.056, 0)
-cartridge_id = "kaya"
-
-[node name="CartridgeWatcher" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.056, 0)
-cartridge_id = "watcher"
-
-[node name="CartridgeBlade" parent="Objects/CartridgeTower" instance=ExtResource("3_cartridge")]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.019, 0)
-cartridge_id = "blade"
 
 [node name="SlotThreshold" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.168, 0)
@@ -322,17 +278,23 @@ transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.056, 0)
 [node name="SlotBlade" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -0.165, 0.019, 0)
 
+[node name="SlotSpareA" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.019, 0)
+
+[node name="SlotSpareB" parent="Objects/CartridgeTower" instance=ExtResource("6_slot")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.165, 0.019, 0)
+
 ; ── Stub computer at α=-70°, radial 0.85 ─────────────────────────────────────
 ; Position (-0.799, 0.98, -0.841). Screen (local +Z) faces player via face_player.gd.
 
-; Computer stub has Interactable script as its root, so we can't attach face_player
-; as a script. Wrap it in a Node3D that handles aiming.
+; Terminal has dedicated children (display zone, dispenser) that aren't plain
+; Interactables, so face_player is applied to a wrapper Node3D.
 [node name="ComputerAnchor" type="Node3D" parent="Objects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799, 0.98, -0.841)
 script = ExtResource("9_face_player")
 facing_axis = 1
 
-[node name="ComputerStub" parent="Objects/ComputerAnchor" instance=ExtResource("8_computer")]
+[node name="LeftTerminal" parent="Objects/ComputerAnchor" instance=ExtResource("8_computer")]
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, -0.55)

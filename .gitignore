@@ -8,3 +8,6 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local-only design notes
+docs-private/

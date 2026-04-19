@@ -259,6 +259,11 @@ func _layout_ticker_bg() -> void:
 	ticker_top_bg.size = ticker_top.size
 	ticker_bottom_bg.position = Vector2.ZERO
 	ticker_bottom_bg.size = ticker_bottom.size
+	# reset_size() shrinks the label to its text height, which parks the glyphs
+	# at the top of the band. Re-expand the label's vertical extent to the band
+	# so the Label's vertical_alignment=CENTER has room to actually centre.
+	ticker_top_label.size.y = ticker_top.size.y
+	ticker_bottom_label.size.y = ticker_bottom.size.y
 
 func _recompute_ticker_segment() -> void:
 	# One copy's width. When the offset has scrolled past this we snap back by

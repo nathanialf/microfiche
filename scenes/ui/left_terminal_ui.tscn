@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://left_terminal_ui_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/left_terminal_ui.gd" id="1_ui"]
+[ext_resource type="Theme" path="res://resources/themes/terminal_theme.tres" id="2_theme"]
+[ext_resource type="Shader" path="res://assets/shaders/crt_scanline.gdshader" id="3_crt"]
+
+[sub_resource type="ShaderMaterial" id="CRTMaterial"]
+shader = ExtResource("3_crt")
+shader_parameter/speed = 30.0
+shader_parameter/intensity = 0.04
+shader_parameter/line_count = 240.0
+shader_parameter/distortion = 0.003
+shader_parameter/vignette_strength = 0.8
+shader_parameter/flicker_speed = 8.0
+shader_parameter/flicker_intensity = 0.015
+shader_parameter/tint = Color(0.18, 1.0, 0.28, 1.0)
+
+[node name="LeftTerminalUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_ui")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.12, 0.04, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+theme_override_constants/separation = 6
+
+[node name="History" type="RichTextLabel" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_active = true
+scroll_following = true
+
+[node name="InputRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PromptPrefix" type="Label" parent="VBox/InputRow"]
+layout_mode = 2
+text = "> "
+
+[node name="Input" type="Label" parent="VBox/InputRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ""
+
+[node name="ScanlineOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(1, 1, 1, 1)
+material = SubResource("CRTMaterial")

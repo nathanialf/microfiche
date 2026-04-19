@@ -57,6 +57,30 @@ func get_cartridge_label(cartridge_id: String) -> String:
 	var c := get_cartridge(cartridge_id)
 	return c.get("label", cartridge_id.to_upper())
 
+# Full title used in interaction prompts ("Pick up / Place / Insert / Eject").
+# Falls back to the short label when a cart has no documents (e.g. CLASSIFIED-7).
+func get_cartridge_full_name(cartridge_id: String) -> String:
+	var docs := get_documents(cartridge_id)
+	if docs.size() > 0:
+		var title: String = docs[0].get("title", "")
+		if not title.is_empty():
+			return title
+	return get_cartridge_label(cartridge_id)
+
+# Document-type prefix pulled from the subtitle (everything before the first
+# em-dash), e.g. "After-Action Report" from "After-Action Report — Cycle …".
+# Used by the dispenser to read as "DISPENSING <TYPE>: <TITLE>". Empty if the
+# subtitle has no prefix or the cart has no documents.
+func get_cartridge_doc_type(cartridge_id: String) -> String:
+	var docs := get_documents(cartridge_id)
+	if docs.size() == 0:
+		return ""
+	var subtitle: String = docs[0].get("subtitle", "")
+	var idx := subtitle.find(" — ")
+	if idx <= 0:
+		return ""
+	return subtitle.substr(0, idx).strip_edges().to_upper()
+
 func get_handwritten_label(cartridge_id: String) -> String:
 	var c := get_cartridge(cartridge_id)
 	return c.get("handwritten_label", "")

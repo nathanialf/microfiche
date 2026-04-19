@@ -1,5 +1,26 @@
 {
   "keyword_to_cartridge": {
+    "Threshold Accords": "threshold",
+    "Article 7": "threshold",
+    "Supervised Status": "threshold",
+
+    "Omicron": "omicron",
+    "Omicron Collapse": "omicron",
+    "Omicron-7": "omicron",
+    "Relay Station": "omicron",
+
+    "Yael": "mox",
+    "Mox": "mox",
+    "Yael Mox": "mox",
+    "OM-7-SOLE": "mox",
+
+    "Sable": "sable",
+    "Operation Sable": "sable",
+
+    "Classified-7": "classified",
+    "Omega Level": "classified",
+    "Access Denied": "classified",
+
     "Aria": "vex",
     "Vex": "vex",
     "Aria Vex": "vex",
@@ -8,6 +29,9 @@
     "Sonar Loom": "vex",
 
     "Spectral Caul": "caul",
+    "Caul": "caul",
+    "psi-shield": "caul",
+    "Mark IV": "caul",
 
     "Greyfield": "choir",
     "Choir": "choir",
@@ -16,6 +40,7 @@
     "subsonic": "choir",
 
     "Glass Litany": "litany",
+    "Litany": "litany",
     "Lin Daro": "litany",
     "Renn Marsh": "litany",
 
@@ -41,8 +66,10 @@
     "auditory phenomena": "watcher",
 
     "Hollow Blade": "blade",
+    "Hollow": "blade",
+    "Blade": "blade",
     "data vault": "blade"
   },
-  "starting_cartridges": ["threshold", "omicron", "mox", "sable", "classified"],
+  "starting_cartridges": ["sable", "classified"],
   "all_cartridges": ["threshold", "omicron", "mox", "sable", "vex", "caul", "choir", "litany", "expanse", "kaya", "watcher", "blade", "classified"]
 }
